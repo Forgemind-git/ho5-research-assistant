@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt Readiness Self-Assessment</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #22263a;
+      --border: #2e334d;
+      --accent: #6c63ff;
+      --accent-light: #a89ff5;
+      --text: #e8eaf6;
+      --text-muted: #8b90b0;
+      --green: #34d399;
+      --yellow: #fbbf24;
+      --red: #f87171;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 16px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      width: 100%;
+      max-width: 660px;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(108,99,255,0.15);
+      color: var(--accent-light);
+      border: 1px solid rgba(108,99,255,0.3);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    .subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 32px; line-height: 1.5; }
+    .question {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      margin-bottom: 12px;
+    }
+    .q-text { font-size: 15px; font-weight: 500; margin-bottom: 14px; line-height: 1.5; }
+    .radio-group { display: flex; gap: 12px; }
+    .radio-label {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 14px;
+      transition: border-color 0.2s, background 0.2s;
+      user-select: none;
+    }
+    .radio-label:hover { border-color: var(--accent); }
+    input[type="radio"] { display: none; }
+    input[type="radio"]:checked + .radio-label {
+      border-color: var(--accent);
+      background: rgba(108,99,255,0.12);
+      color: var(--text);
+    }
+    .radio-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    input[type="radio"]:checked + .radio-label .radio-dot {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .submit-row { margin-top: 28px; display: flex; justify-content: center; }
+    .btn {
+      padding: 14px 40px;
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn:active { transform: scale(0.97); }
+    .btn:disabled { opacity: 0.3; cursor: default; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { color: var(--text); border-color: var(--text-muted); opacity: 1; }
+    .result { display: none; }
+    .result.visible { display: block; }
+    .score-header {
+      text-align: center;
+      padding: 32px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+    }
+    .score-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      border: 4px solid;
+      font-size: 32px;
+      font-weight: 800;
+    }
+    .band-name { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .band-desc { font-size: 14px; color: var(--text-muted); max-width: 400px; margin: 0 auto; line-height: 1.5; }
+    .tips-section { margin-bottom: 24px; }
+    .tips-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .tip-card {
+      background: var(--surface2);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+    }
+    .tip-card .tip-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .tip-card .tip-body { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+    .answered-section { margin-bottom: 24px; }
+    .answer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .answer-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+    }
+    .answer-pill .a-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .retake-row { text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge">Self-Assessment</div>
+    <h1>Prompt Readiness Self-Assessment</h1>
+    <p class="subtitle">Answer 10 questions about your current prompting habits. Get a score, a skill band, and tailored improvement tips.</p>
+
+    <form id="quiz" novalidate>
+      <!-- Injected by JS -->
+    </form>
+    <div class="submit-row" id="submitRow">
+      <button class="btn" id="submitBtn" onclick="submitQuiz(event)" disabled>See My Score</button>
+    </div>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const questions = [
+      { id: 'role',    text: 'Do you assign a role to the AI at the start of your prompt? (e.g. "You are an expert copywriter…")', tipTitle: 'Assign a Role', tipBody: 'Starting with a role primes the model\'s tone and expertise. Try: "You are a senior UX designer. Review this wireframe…"' },
+      { id: 'context', text: 'Do you provide context about your situation or goal before asking the AI to do something?', tipTitle: 'Provide Context', tipBody: 'The more the AI knows about your situation, the more tailored its answer. Include who you are, what you\'re working on, and why.' },
+      { id: 'format',  text: 'Do you specify the output format you want? (e.g. bullet list, table, JSON, paragraph)', tipTitle: 'Specify Output Format', tipBody: 'Tell the AI exactly what you want back: "Reply as a numbered list of 5 items, each under 20 words."' },
+      { id: 'length',  text: 'Do you tell the AI roughly how long or how detailed the response should be?', tipTitle: 'Set Length Expectations', tipBody: 'Add phrases like "in 2-3 sentences", "a detailed 400-word section", or "one short paragraph" to get responses that match your needs.' },
+      { id: 'example', text: 'Do you include examples of the kind of output you\'re looking for (few-shot prompting)?', tipTitle: 'Use Few-Shot Examples', tipBody: 'Show the model what a good answer looks like. Even one example dramatically improves consistency and style alignment.' },
+      { id: 'persona', text: 'Do you consider the intended audience and instruct the AI to write for them?', tipTitle: 'Define the Audience', tipBody: 'Add "written for a non-technical marketing manager" or "for a 10-year-old audience" to calibrate complexity and tone.' },
+      { id: 'iterate', text: 'Do you refine and iterate on prompts that don\'t give the result you need (rather than accepting the first output)?', tipTitle: 'Iterate on Prompts', tipBody: 'Prompting is a conversation. If the first output isn\'t right, follow up: "Make it more concise" or "Focus more on X aspect."' },
+      { id: 'constraint', text: 'Do you add constraints to avoid unwanted output? (e.g. "Do not include pricing", "Avoid jargon")', tipTitle: 'Add Negative Constraints', tipBody: 'Tell the AI what NOT to do. "Don\'t use bullet points. Don\'t add a conclusion." Constraints reduce revision cycles.' },
+      { id: 'test',    text: 'Do you test prompts across different scenarios or edge cases before using them in production?', tipTitle: 'Test Across Edge Cases', tipBody: 'Run your prompt with a variety of inputs — tricky, edge-case, and adversarial ones — before building workflows around it.' },
+      { id: 'chain',   text: 'Do you break complex tasks into multiple smaller prompts rather than asking everything in one go?', tipTitle: 'Chain Prompts for Complexity', tipBody: 'Complex tasks done in one prompt often produce mediocre results. Split: first outline, then draft section by section, then edit.' }
+    ];
+
+    function renderQuiz() {
+      const form = document.getElementById('quiz');
+      form.innerHTML = questions.map((q, i) => `
+        <div class="question">
+          <div class="q-text"><strong>${i+1}.</strong> ${q.text}</div>
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="${q.id}" value="yes" onchange="checkAll()" />
+              <div class="radio-label"><div class="radio-dot"></div> Yes</div>
+            </label>
+            <label>
+              <input type="radio" name="${q.id}" value="no" onchange="checkAll()" />
+              <div class="radio-label"><div class="radio-dot"></div> No</div>
+            </label>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function checkAll() {
+      const allAnswered = questions.every(q => document.querySelector(`input[name="${q.id}"]:checked`));
+      document.getElementById('submitBtn').disabled = !allAnswered;
+    }
+
+    function submitQuiz(e) {
+      e.preventDefault();
+      const yesIds = questions.filter(q => {
+        const el = document.querySelector(`input[name="${q.id}"]:checked`);
+        return el && el.value === 'yes';
+      }).map(q => q.id);
+
+      const noIds = questions.filter(q => {
+        const el = document.querySelector(`input[name="${q.id}"]:checked`);
+        return el && el.value === 'no';
+      }).map(q => q.id);
+
+      const score = yesIds.length;
+
+      let band, bandColor, bandDesc;
+      if (score <= 3) {
+        band = 'Beginner';
+        bandColor = 'var(--red)';
+        bandDesc = 'You\'re just getting started with AI prompting. Focus on the basics: adding context, assigning a role, and specifying output format.';
+      } else if (score <= 6) {
+        band = 'Practitioner';
+        bandColor = 'var(--yellow)';
+        bandDesc = 'You have a solid foundation. Tightening your constraints, testing edge cases, and chaining prompts will take you to expert level.';
+      } else {
+        band = 'Expert';
+        bandColor = 'var(--green)';
+        bandDesc = 'Strong prompting habits across the board. Keep experimenting with chaining, few-shot examples, and systematic prompt testing.';
+      }
+
+      const tips = noIds.slice(0, 3).map(id => questions.find(q => q.id === id));
+
+      const answerGrid = questions.map(q => {
+        const isYes = yesIds.includes(q.id);
+        const shortLabel = q.id.replace(/_/g,' ');
+        return `<div class="answer-pill">
+          <div class="a-dot" style="background:${isYes ? 'var(--green)' : 'var(--red)'}"></div>
+          ${isYes ? '✓' : '✗'} ${questions.indexOf(q)+1}. ${q.tipTitle}
+        </div>`;
+      }).join('');
+
+      const tipsHtml = tips.length > 0 ? `
+        <div class="tips-section">
+          <div class="tips-title">Your top improvement areas</div>
+          ${tips.map(t => `
+            <div class="tip-card">
+              <div class="tip-title">${t.tipTitle}</div>
+              <div class="tip-body">${t.tipBody}</div>
+            </div>
+          `).join('')}
+        </div>
+      ` : `<div class="tips-section"><div class="tips-title">All areas covered — great work!</div></div>`;
+
+      document.getElementById('quiz').style.display = 'none';
+      document.getElementById('submitRow').style.display = 'none';
+      const result = document.getElementById('result');
+      result.innerHTML = `
+        <div class="score-header">
+          <div class="score-circle" style="border-color:${bandColor};color:${bandColor}">${score}/10</div>
+          <div class="band-name" style="color:${bandColor}">${band}</div>
+          <div class="band-desc">${bandDesc}</div>
+        </div>
+        ${tipsHtml}
+        <div class="answered-section">
+          <div class="tips-title">Your answers</div>
+          <div class="answer-grid">${answerGrid}</div>
+        </div>
+        <div class="retake-row">
+          <button class="btn btn-ghost" onclick="retake()">↩ Retake Assessment</button>
+        </div>
+      `;
+      result.classList.add('visible');
+    }
+
+    function retake() {
+      document.getElementById('quiz').style.display = '';
+      document.getElementById('submitRow').style.display = '';
+      document.getElementById('result').classList.remove('visible');
+      document.getElementById('result').innerHTML = '';
+      document.querySelectorAll('input[type="radio"]').forEach(el => el.checked = false);
+      document.getElementById('submitBtn').disabled = true;
+    }
+
+    renderQuiz();
+  </script>
+</body>
+</html>

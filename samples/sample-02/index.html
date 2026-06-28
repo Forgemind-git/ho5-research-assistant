@@ -1,29 +1,24 @@
+<!-- TODO: Fill in the questions, answer options, scoring logic, and recommendation cards in the script block below -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Plan Recommendation Quiz</title>
+  <title>Decision Quiz — Starter</title>
   <style>
     :root {
-      --bg: #0f1117;
-      --surface: #1a1d27;
-      --surface2: #22263a;
-      --border: #2e334d;
-      --accent: #6c63ff;
-      --accent-light: #a89ff5;
-      --text: #e8eaf6;
-      --text-muted: #8b90b0;
+      --bg: #F8F9FA;
+      --surface: #ffffff;
+      --border: #E5E7EB;
+      --accent: #7C3AED;
+      --text: #1a1a2e;
+      --text-muted: #6B7280;
       --radius: 12px;
       --radius-sm: 8px;
-      --free-color: #60a5fa;
-      --pro-color: #a78bfa;
-      --team-color: #f472b6;
-      --api-color: #34d399;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
@@ -38,28 +33,38 @@
       border-radius: var(--radius);
       padding: 40px;
       width: 100%;
-      max-width: 640px;
+      max-width: 600px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
     }
     .badge {
       display: inline-block;
-      background: rgba(108,99,255,0.15);
-      color: var(--accent-light);
-      border: 1px solid rgba(108,99,255,0.3);
+      background: #EDE9FE;
+      color: var(--accent);
       border-radius: 20px;
       padding: 4px 14px;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
       margin-bottom: 16px;
     }
-    h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
-    .subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 36px; line-height: 1.5; }
-    .progress-bar-wrap {
-      background: var(--surface2);
+    h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+    .subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 28px; line-height: 1.6; }
+    .todo-bar {
+      background: #FEF3C7;
+      border-left: 4px solid #D97706;
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #92400E;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    .progress-wrap {
+      background: #E5E7EB;
       border-radius: 4px;
       height: 4px;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
       overflow: hidden;
     }
     .progress-bar {
@@ -68,294 +73,230 @@
       border-radius: 4px;
       transition: width 0.4s ease;
     }
-    .question-block { display: none; }
-    .question-block.active { display: block; }
-    .q-number { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 10px; }
-    .q-text { font-size: 20px; font-weight: 600; margin-bottom: 24px; line-height: 1.4; }
-    .options { display: flex; flex-direction: column; gap: 12px; }
+    .q-number { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 8px; }
+    .q-text { font-size: 18px; font-weight: 700; margin-bottom: 20px; line-height: 1.4; }
+    .options { display: flex; flex-direction: column; gap: 10px; }
     .option {
-      background: var(--surface2);
+      background: #F9FAFB;
       border: 2px solid var(--border);
       border-radius: var(--radius-sm);
-      padding: 16px 20px;
+      padding: 14px 18px;
       cursor: pointer;
-      font-size: 15px;
+      font-size: 14px;
       color: var(--text);
-      transition: border-color 0.2s, background 0.2s;
-      user-select: none;
+      transition: border-color 0.2s;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
-    .option:hover { border-color: var(--accent); background: rgba(108,99,255,0.08); }
-    .option.selected { border-color: var(--accent); background: rgba(108,99,255,0.15); }
-    .option .dot {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      border: 2px solid var(--border);
-      flex-shrink: 0;
-      transition: background 0.2s, border-color 0.2s;
-    }
+    .option:hover { border-color: var(--accent); }
+    .option.selected { border-color: var(--accent); background: #EDE9FE; }
+    .dot { width: 16px; height: 16px; border-radius: 50%; border: 2px solid #D1D5DB; flex-shrink: 0; }
     .option.selected .dot { background: var(--accent); border-color: var(--accent); }
-    .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; gap: 12px; }
+    .nav-row { display: flex; justify-content: space-between; margin-top: 24px; }
     .btn {
-      padding: 12px 28px;
+      padding: 11px 24px;
       border-radius: var(--radius-sm);
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 700;
       cursor: pointer;
       border: none;
-      transition: opacity 0.2s, transform 0.1s;
     }
-    .btn:active { transform: scale(0.97); }
     .btn-primary { background: var(--accent); color: #fff; }
     .btn-primary:disabled { opacity: 0.3; cursor: default; }
     .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
-    .btn-ghost:hover { color: var(--text); border-color: var(--text-muted); }
-    .result { display: none; }
-    .result.visible { display: block; }
-    .plan-card {
+    /* Result area */
+    #result { display: none; }
+    #result.visible { display: block; }
+    .result-card {
+      border: 2px solid var(--accent);
       border-radius: var(--radius);
-      padding: 32px;
-      margin-bottom: 24px;
-      border: 2px solid;
+      padding: 28px;
+      background: #EDE9FE;
+      margin-bottom: 20px;
     }
-    .plan-card.free  { background: rgba(96,165,250,0.08);  border-color: rgba(96,165,250,0.4);  }
-    .plan-card.pro   { background: rgba(167,139,250,0.08); border-color: rgba(167,139,250,0.4); }
-    .plan-card.team  { background: rgba(244,114,182,0.08); border-color: rgba(244,114,182,0.4); }
-    .plan-card.api   { background: rgba(52,211,153,0.08);  border-color: rgba(52,211,153,0.4);  }
-    .plan-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
-    .plan-card.free  .plan-label { color: var(--free-color); }
-    .plan-card.pro   .plan-label { color: var(--pro-color); }
-    .plan-card.team  .plan-label { color: var(--team-color); }
-    .plan-card.api   .plan-label { color: var(--api-color); }
-    .plan-name { font-size: 32px; font-weight: 800; margin-bottom: 12px; }
-    .plan-reason { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
-    .plan-features { list-style: none; margin-top: 20px; display: flex; flex-direction: column; gap: 8px; }
-    .plan-features li { font-size: 14px; color: var(--text-muted); display: flex; gap: 8px; }
-    .plan-features li::before { content: "✓"; font-weight: 700; }
-    .plan-card.free  .plan-features li::before { color: var(--free-color); }
-    .plan-card.pro   .plan-features li::before { color: var(--pro-color); }
-    .plan-card.team  .plan-features li::before { color: var(--team-color); }
-    .plan-card.api   .plan-features li::before { color: var(--api-color); }
-    .retake-btn { width: 100%; }
+    .result-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .result-name { font-size: 28px; font-weight: 800; margin-bottom: 10px; color: var(--text); }
+    .result-reason { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
+    .result-cta {
+      display: inline-block;
+      padding: 10px 20px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .retake-btn { width: 100%; margin-top: 12px; padding: 12px; }
   </style>
 </head>
 <body>
   <div class="card">
-    <div class="badge">Decision Quiz</div>
-    <h1>Which Claude Plan Is Right for You?</h1>
-    <p class="subtitle">Answer 5 quick questions and get a personalised plan recommendation.</p>
+    <div class="badge">Sample 2 &mdash; Decision Quiz</div>
+    <h1><!-- TODO: give your quiz a title -->[Which [X] Is Right for You?]</h1>
+    <p class="subtitle"><!-- TODO: subtitle -->[Answer a few quick questions and get a personalised recommendation.]</p>
 
-    <div class="progress-bar-wrap">
-      <div class="progress-bar" id="progress" style="width: 0%"></div>
+    <div class="todo-bar">
+      <strong>Student TODO:</strong> In the &lt;script&gt; block below, fill in the <code>questions</code> array with your 4–5 questions and options, and fill in the <code>outcomes</code> object with recommendation cards. Then implement the <code>showResult()</code> scoring logic.
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progressBar" style="width:0%"></div>
     </div>
 
     <div id="quiz">
-      <!-- Questions injected by JS -->
+      <!-- Questions rendered by JavaScript -->
     </div>
 
-    <div class="result" id="result">
-      <div id="planCard"></div>
-      <button class="btn btn-ghost retake-btn" onclick="retake()">↩ Retake Quiz</button>
+    <div id="result">
+      <!-- Recommendation card rendered by JavaScript -->
     </div>
   </div>
 
   <script>
+    // TODO: Replace these placeholder questions with YOUR 4–5 real questions.
+    // Each question needs a `text` and an `options` array.
+    // Each option can optionally carry a `scores` object to drive the recommendation.
     const questions = [
       {
-        text: "How do you primarily use AI assistants?",
+        text: "[TODO: Question 1 — e.g. How often do you use this product?]",
         options: [
-          { label: "Occasional personal tasks — writing, research, quick questions", scores: { free: 3, pro: 1 } },
-          { label: "Daily work tasks — drafting, summarising, problem-solving", scores: { pro: 3, team: 1 } },
-          { label: "Building products or integrating AI into software", scores: { api: 4 } }
+          { label: "[TODO: Option A]", scores: { optionA: 2 } },
+          { label: "[TODO: Option B]", scores: { optionB: 2 } },
+          { label: "[TODO: Option C]", scores: { optionC: 2 } }
         ]
       },
       {
-        text: "How many people need access to Claude at your organisation?",
+        text: "[TODO: Question 2]",
         options: [
-          { label: "Just me", scores: { free: 2, pro: 2 } },
-          { label: "A small team (2–25 people)", scores: { team: 4 } },
-          { label: "Many users or automated systems at scale", scores: { api: 4 } }
+          { label: "[TODO: Option A]", scores: { optionA: 1 } },
+          { label: "[TODO: Option B]", scores: { optionB: 3 } },
+          { label: "[TODO: Option C]", scores: { optionC: 1 } }
         ]
       },
       {
-        text: "How often do you hit usage limits on free AI tools?",
+        text: "[TODO: Question 3]",
         options: [
-          { label: "Rarely — I use it lightly", scores: { free: 4 } },
-          { label: "Sometimes — it's frustrating but manageable", scores: { pro: 3 } },
-          { label: "All the time — limits block my workflow", scores: { pro: 2, team: 2 } }
+          { label: "[TODO: Option A]", scores: { optionA: 2 } },
+          { label: "[TODO: Option B]", scores: { optionB: 1 } }
         ]
       },
       {
-        text: "Do you need to use the most powerful / latest AI models?",
+        text: "[TODO: Question 4]",
         options: [
-          { label: "No — good enough answers are fine for me", scores: { free: 3 } },
-          { label: "Yes — I want priority access to the best model", scores: { pro: 3, team: 1 } },
-          { label: "Yes, and I need to choose models programmatically", scores: { api: 4 } }
+          { label: "[TODO: Option A]", scores: { optionA: 1 } },
+          { label: "[TODO: Option B]", scores: { optionB: 2 } },
+          { label: "[TODO: Option C]", scores: { optionC: 3 } }
         ]
       },
       {
-        text: "How important is centralised billing and admin controls to you?",
+        text: "[TODO: Question 5]",
         options: [
-          { label: "Not important — I handle my own account", scores: { free: 2, pro: 2 } },
-          { label: "Important — my team needs shared billing and permissions", scores: { team: 4 } },
-          { label: "Critical — I need API-level control and usage tracking", scores: { api: 3, team: 1 } }
+          { label: "[TODO: Option A]", scores: { optionA: 3 } },
+          { label: "[TODO: Option B]", scores: { optionB: 1 } }
         ]
       }
     ];
 
-    const plans = {
-      free: {
-        cls: 'free',
-        name: 'Claude Free',
-        reason: 'Based on your answers, the free tier gives you everything you need. You use AI occasionally, don\'t hit limits often, and don\'t need advanced model access. Start free and upgrade any time.',
-        features: ['Access to Claude on claude.ai', 'Good for light personal use', 'No credit card needed', 'Upgrade any time']
+    // TODO: Replace with YOUR outcome cards.
+    // Keys must match the score keys used above.
+    const outcomes = {
+      optionA: {
+        name: "[TODO: Outcome A name]",
+        reason: "[TODO: Why this outcome fits the user — 1–2 sentences]",
+        cta: { label: "Learn more", href: "#" }
       },
-      pro: {
-        cls: 'pro',
-        name: 'Claude Pro',
-        reason: 'You use Claude regularly for meaningful work and want priority access to the most capable models without hitting limits. Claude Pro gives you 5× more usage and priority access to Claude\'s most powerful model.',
-        features: ['5× more usage than Free', 'Priority access to Claude 3.5 Sonnet & Opus', 'Early access to new features', 'Create and use Projects']
+      optionB: {
+        name: "[TODO: Outcome B name]",
+        reason: "[TODO: Why this outcome fits the user]",
+        cta: { label: "Get started", href: "#" }
       },
-      team: {
-        cls: 'team',
-        name: 'Claude Team',
-        reason: 'You need multiple people working with Claude under a shared plan. Claude Team gives your whole organisation priority access, shared billing, and collaboration features — all in one place.',
-        features: ['Everything in Pro for your whole team', 'Centralised billing and admin panel', 'Higher usage limits per person', 'Shared Projects and context']
-      },
-      api: {
-        cls: 'api',
-        name: 'Claude API',
-        reason: 'You\'re building with Claude — whether that\'s automating workflows, building a product, or running Claude at scale. The API gives you programmatic control, model selection, and pay-per-token pricing.',
-        features: ['Access all Claude models via REST API', 'Pay only for tokens you use', 'Fine-grained model and parameter control', 'Build integrations, agents, and products']
+      optionC: {
+        name: "[TODO: Outcome C name]",
+        reason: "[TODO: Why this outcome fits the user]",
+        cta: { label: "Find out more", href: "#" }
       }
     };
 
+    // --- Quiz engine (you should NOT need to edit below this line) ---
     let current = 0;
     const answers = new Array(questions.length).fill(null);
 
-    function renderQuiz() {
-      const container = document.getElementById('quiz');
-      container.innerHTML = questions.map((q, i) => `
-        <div class="question-block${i === current ? ' active' : ''}" id="q${i}">
-          <div class="q-number">Question ${i + 1} of ${questions.length}</div>
-          <div class="q-text">${q.text}</div>
-          <div class="options">
-            ${q.options.map((opt, j) => `
-              <div class="option${answers[i] === j ? ' selected' : ''}"
-                   onclick="selectAnswer(${i}, ${j})" role="button" tabindex="0">
-                <div class="dot"></div>
-                ${opt.label}
-              </div>
-            `).join('')}
-          </div>
+    function render() {
+      const q = questions[current];
+      document.getElementById('progressBar').style.width = (current / questions.length * 100) + '%';
+      document.getElementById('quiz').innerHTML = `
+        <div class="q-number">Question ${current + 1} of ${questions.length}</div>
+        <div class="q-text">${q.text}</div>
+        <div class="options" id="opts">
+          ${q.options.map((o, i) => `
+            <div class="option${answers[current] === i ? ' selected' : ''}" onclick="pick(${i})">
+              <div class="dot"></div>${o.label}
+            </div>
+          `).join('')}
         </div>
-      `).join('');
-
-      document.querySelectorAll('.option').forEach(el => {
-        el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') el.click(); });
-      });
-
-      renderNav();
-      updateProgress();
-    }
-
-    function renderNav() {
-      const existing = document.getElementById('nav-row');
-      if (existing) existing.remove();
-      const row = document.createElement('div');
-      row.className = 'nav-row';
-      row.id = 'nav-row';
-      row.innerHTML = `
-        ${current > 0
-          ? `<button class="btn btn-ghost" onclick="goBack()">← Back</button>`
-          : `<div></div>`}
-        <button class="btn btn-primary" id="nextBtn"
-          onclick="goNext()" ${answers[current] === null ? 'disabled' : ''}>
-          ${current === questions.length - 1 ? 'See My Result →' : 'Next →'}
-        </button>
+        <div class="nav-row">
+          ${current > 0 ? '<button class="btn btn-ghost" onclick="back()">&larr; Back</button>' : '<div></div>'}
+          <button class="btn btn-primary" id="nextBtn" onclick="next()" ${answers[current] === null ? 'disabled' : ''}>
+            ${current === questions.length - 1 ? 'See my result &rarr;' : 'Next &rarr;'}
+          </button>
+        </div>
       `;
-      document.getElementById('quiz').appendChild(row);
     }
 
-    function updateProgress() {
-      const pct = (current / questions.length) * 100;
-      document.getElementById('progress').style.width = pct + '%';
+    function pick(i) {
+      answers[current] = i;
+      render();
     }
 
-    function selectAnswer(qIdx, optIdx) {
-      answers[qIdx] = optIdx;
-      document.querySelectorAll(`#q${qIdx} .option`).forEach((el, i) => {
-        el.classList.toggle('selected', i === optIdx);
-      });
-      document.getElementById('nextBtn').disabled = false;
-    }
-
-    function goNext() {
+    function next() {
       if (answers[current] === null) return;
-      if (current < questions.length - 1) {
-        current++;
-        renderQuiz();
-        document.querySelectorAll('.question-block').forEach((el, i) => {
-          el.classList.toggle('active', i === current);
-        });
-      } else {
-        showResult();
-      }
+      if (current < questions.length - 1) { current++; render(); }
+      else showResult();
     }
 
-    function goBack() {
-      if (current > 0) {
-        current--;
-        renderQuiz();
-        document.querySelectorAll('.question-block').forEach((el, i) => {
-          el.classList.toggle('active', i === current);
-        });
-      }
+    function back() {
+      if (current > 0) { current--; render(); }
     }
 
     function showResult() {
-      const scores = { free: 0, pro: 0, team: 0, api: 0 };
-      questions.forEach((q, i) => {
-        const chosen = q.options[answers[i]];
+      // TODO: implement your scoring logic here.
+      // Tally scores across all answers and pick the winner.
+      const scores = {};
+      questions.forEach((q, qi) => {
+        const chosen = q.options[answers[qi]];
         if (chosen && chosen.scores) {
-          Object.entries(chosen.scores).forEach(([plan, pts]) => { scores[plan] += pts; });
+          Object.entries(chosen.scores).forEach(([k, v]) => { scores[k] = (scores[k] || 0) + v; });
         }
       });
-
-      const winner = Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
-      const plan = plans[winner];
+      const winner = Object.entries(scores).sort((a, b) => b[1] - a[1])[0]?.[0];
+      const outcome = outcomes[winner] || outcomes[Object.keys(outcomes)[0]];
 
       document.getElementById('quiz').style.display = 'none';
-      const existingNav = document.getElementById('nav-row');
-      if (existingNav) existingNav.remove();
-
-      document.getElementById('progress').style.width = '100%';
-
-      document.getElementById('planCard').innerHTML = `
-        <div class="plan-card ${plan.cls}">
-          <div class="plan-label">Recommended Plan</div>
-          <div class="plan-name">${plan.name}</div>
-          <div class="plan-reason">${plan.reason}</div>
-          <ul class="plan-features">
-            ${plan.features.map(f => `<li>${f}</li>`).join('')}
-          </ul>
+      document.getElementById('progressBar').style.width = '100%';
+      const result = document.getElementById('result');
+      result.innerHTML = `
+        <div class="result-card">
+          <div class="result-label">Your recommendation</div>
+          <div class="result-name">${outcome.name}</div>
+          <div class="result-reason">${outcome.reason}</div>
+          <a class="result-cta" href="${outcome.cta.href}">${outcome.cta.label}</a>
         </div>
+        <button class="btn btn-ghost retake-btn" onclick="retake()">&larr; Retake Quiz</button>
       `;
-      document.getElementById('result').classList.add('visible');
+      result.classList.add('visible');
     }
 
     function retake() {
       current = 0;
       answers.fill(null);
-      document.getElementById('quiz').style.display = '';
       document.getElementById('result').classList.remove('visible');
-      renderQuiz();
+      document.getElementById('quiz').style.display = '';
+      render();
     }
 
-    renderQuiz();
+    render();
   </script>
 </body>
 </html>

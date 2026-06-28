@@ -1,27 +1,24 @@
+<!-- TODO: Fill in the input labels, add your calculation logic in the calculate() function, and display the results -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Tool ROI Calculator</title>
+  <title>ROI Calculator — Starter</title>
   <style>
     :root {
-      --bg: #0f1117;
-      --surface: #1a1d27;
-      --surface2: #22263a;
-      --border: #2e334d;
-      --accent: #6c63ff;
-      --accent-light: #a89ff5;
-      --text: #e8eaf6;
-      --text-muted: #8b90b0;
-      --green: #34d399;
-      --green-bg: #0d2a20;
+      --bg: #F8F9FA;
+      --surface: #ffffff;
+      --border: #E5E7EB;
+      --accent: #7C3AED;
+      --text: #1a1a2e;
+      --text-muted: #6B7280;
       --radius: 12px;
       --radius-sm: 8px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
@@ -36,221 +33,173 @@
       border-radius: var(--radius);
       padding: 40px;
       width: 100%;
-      max-width: 640px;
+      max-width: 600px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
     }
     .badge {
       display: inline-block;
-      background: rgba(108,99,255,0.15);
-      color: var(--accent-light);
-      border: 1px solid rgba(108,99,255,0.3);
+      background: #EDE9FE;
+      color: var(--accent);
       border-radius: 20px;
       padding: 4px 14px;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
       margin-bottom: 16px;
     }
-    h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; line-height: 1.2; }
-    .subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 36px; line-height: 1.5; }
-    .field { margin-bottom: 24px; }
+    h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+    .subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 32px; line-height: 1.6; }
+    .todo-bar {
+      background: #FEF3C7;
+      border-left: 4px solid #D97706;
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #92400E;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    .field { margin-bottom: 20px; }
     label {
       display: block;
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.05em;
       margin-bottom: 8px;
     }
-    .input-wrapper { position: relative; display: flex; align-items: center; }
-    .prefix { position: absolute; left: 14px; color: var(--text-muted); font-size: 15px; pointer-events: none; }
-    .suffix { position: absolute; right: 14px; color: var(--text-muted); font-size: 13px; pointer-events: none; }
     input[type="number"] {
       width: 100%;
-      background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       color: var(--text);
       font-size: 16px;
-      padding: 12px 56px 12px 14px;
+      padding: 12px 14px;
       outline: none;
+      background: #F9FAFB;
       transition: border-color 0.2s;
       -moz-appearance: textfield;
     }
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
-    input[type="number"]:focus { border-color: var(--accent); }
-    input.has-prefix { padding-left: 36px; }
-    .divider { height: 1px; background: var(--border); margin: 32px 0; }
-    .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-    .result-card {
-      background: var(--surface2);
-      border: 1px solid var(--border);
+    input[type="number"]:focus { border-color: var(--accent); background: #fff; }
+    .divider { height: 1px; background: var(--border); margin: 28px 0; }
+    .btn-calculate {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 24px;
+    }
+    .btn-calculate:hover { opacity: 0.9; }
+    #result {
+      background: #F3F0FF;
+      border: 1px solid #DDD6FE;
       border-radius: var(--radius-sm);
       padding: 20px;
-    }
-    .result-card.highlight {
-      background: var(--green-bg);
-      border-color: rgba(52,211,153,0.25);
-      grid-column: 1 / -1;
-    }
-    .result-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 8px; }
-    .result-value { font-size: 26px; font-weight: 700; color: var(--text); line-height: 1; }
-    .result-card.highlight .result-value { color: var(--green); }
-    .result-sub { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
-    .zero-state { text-align: center; color: var(--text-muted); font-size: 14px; padding: 20px 0; }
-    .payback-row {
-      display: flex; align-items: center; gap: 12px;
-      background: var(--surface2); border: 1px solid var(--border);
-      border-radius: var(--radius-sm); padding: 16px 20px;
-    }
-    .payback-icon { font-size: 24px; }
-    .payback-text { font-size: 14px; color: var(--text-muted); }
-    .payback-text strong { color: var(--text); display: block; font-size: 16px; margin-bottom: 2px; }
-    .note {
-      margin-top: 16px;
-      padding: 12px 16px;
-      background: rgba(108,99,255,0.08);
-      border: 1px solid rgba(108,99,255,0.2);
-      border-radius: var(--radius-sm);
-      font-size: 12px;
+      font-size: 14px;
       color: var(--text-muted);
-      line-height: 1.5;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .footer { margin-top: 32px; font-size: 12px; color: var(--text-muted); text-align: center; }
+    .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: 100%; }
+    .result-item { text-align: center; }
+    .result-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); margin-bottom: 6px; }
+    .result-value { font-size: 22px; font-weight: 800; color: var(--accent); }
   </style>
 </head>
 <body>
   <div class="card">
-    <div class="badge">ROI Calculator</div>
-    <h1>AI Tool ROI Calculator</h1>
-    <p class="subtitle">Enter your team details below. Results update live as you type.</p>
+    <div class="badge">Sample 1 &mdash; ROI Calculator</div>
+    <h1><!-- TODO: give your tool a title -->[Your Tool Name]</h1>
+    <p class="subtitle"><!-- TODO: one-line description of what this calculator does -->[Describe what this tool calculates and who it helps]</p>
 
+    <div class="todo-bar">
+      <strong>Student TODO:</strong> Fill in each input label below, set sensible default values, then write the calculate() function at the bottom of this file.
+    </div>
+
+    <!-- INPUT SECTION -->
     <div class="field">
-      <label>Team Size</label>
-      <div class="input-wrapper">
-        <input type="number" id="teamSize" min="1" value="5" />
-        <span class="suffix">people</span>
-      </div>
+      <label>[TODO: label this input — e.g. "Team Size"]</label>
+      <input type="number" id="input1" value="0" min="0" placeholder="0" />
     </div>
 
     <div class="field">
-      <label>Hours Spent on Task per Week (per person)</label>
-      <div class="input-wrapper">
-        <input type="number" id="hoursPerWeek" min="0" step="0.5" value="10" />
-        <span class="suffix">hrs/wk</span>
-      </div>
+      <label>[TODO: label this input — e.g. "Hours per Week"]</label>
+      <input type="number" id="input2" value="0" min="0" placeholder="0" />
     </div>
 
     <div class="field">
-      <label>Average Hourly Rate</label>
-      <div class="input-wrapper">
-        <span class="prefix">$</span>
-        <input type="number" id="hourlyRate" min="0" class="has-prefix" value="50" />
-        <span class="suffix">/hr</span>
-      </div>
+      <label>[TODO: label this input — e.g. "Hourly Cost (£)"]</label>
+      <input type="number" id="input3" value="0" min="0" placeholder="0" />
     </div>
 
     <div class="field">
-      <label>Expected AI Time Saving</label>
-      <div class="input-wrapper">
-        <input type="number" id="timeSaving" min="0" max="100" value="30" />
-        <span class="suffix">%</span>
-      </div>
-    </div>
-
-    <div class="field">
-      <label>Monthly AI Tool Cost (optional)</label>
-      <div class="input-wrapper">
-        <span class="prefix">$</span>
-        <input type="number" id="toolCost" min="0" class="has-prefix" value="20" />
-        <span class="suffix">/mo</span>
-      </div>
+      <label>[TODO: label this input — e.g. "Tool Cost per Month (£)"]</label>
+      <input type="number" id="input4" value="0" min="0" placeholder="0" />
     </div>
 
     <div class="divider"></div>
-    <div id="results"></div>
-    <div class="footer">Assumes 4.33 weeks per month. Results are estimates based on inputs provided.</div>
+
+    <!-- CALCULATE BUTTON -->
+    <button class="btn-calculate" onclick="calculate()">Calculate ROI</button>
+
+    <!-- OUTPUT SECTION -->
+    <!-- TODO: show your calculated results here -->
+    <div id="result">
+      <!-- TODO: replace this placeholder with your result cards once calculate() runs -->
+      <span style="color:#9CA3AF;font-size:13px;">Fill in the inputs above and click Calculate to see your results.</span>
+    </div>
   </div>
 
   <script>
-    ['teamSize','hoursPerWeek','hourlyRate','timeSaving','toolCost'].forEach(id =>
-      document.getElementById(id).addEventListener('input', calculate)
-    );
-
-    function fmt(n, d = 0) {
-      return n.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
-    }
-
     function calculate() {
-      const teamSize  = parseFloat(document.getElementById('teamSize').value)    || 0;
-      const hours     = parseFloat(document.getElementById('hoursPerWeek').value) || 0;
-      const rate      = parseFloat(document.getElementById('hourlyRate').value)   || 0;
-      const saving    = parseFloat(document.getElementById('timeSaving').value)   || 0;
-      const toolCost  = parseFloat(document.getElementById('toolCost').value)     || 0;
-      const el        = document.getElementById('results');
+      // TODO: read your input values here
+      // const input1 = parseFloat(document.getElementById('input1').value) || 0;
+      // const input2 = parseFloat(document.getElementById('input2').value) || 0;
+      // const input3 = parseFloat(document.getElementById('input3').value) || 0;
+      // const input4 = parseFloat(document.getElementById('input4').value) || 0;
 
-      if (!teamSize || !hours || !rate || !saving) {
-        el.innerHTML = '<p class="zero-state">Fill in the fields above to see your estimated ROI.</p>';
-        return;
-      }
+      // TODO: write your ROI calculation logic here
+      // Example structure:
+      // const timeSavedPerWeek = ...;
+      // const annualCostSaving = ...;
+      // const paybackMonths    = ...;
+      // const roiPercent       = ...;
 
-      const WEEKS_PER_MONTH = 4.33;
-      const savedHrsWk    = teamSize * hours * (saving / 100);
-      const savedHrsMo    = savedHrsWk * WEEKS_PER_MONTH;
-      const grossSavedMo  = savedHrsMo * rate;
-      const netSavedMo    = grossSavedMo - toolCost;
-      const annualNet     = netSavedMo * 12;
-      const paybackMo     = toolCost > 0 ? toolCost / grossSavedMo : null;
+      // TODO: display your results here
+      // document.getElementById('result').innerHTML = `
+      //   <div class="result-grid">
+      //     <div class="result-item">
+      //       <div class="result-label">Time Saved / Week</div>
+      //       <div class="result-value">${timeSavedPerWeek} hrs</div>
+      //     </div>
+      //     <div class="result-item">
+      //       <div class="result-label">Annual Saving</div>
+      //       <div class="result-value">£${annualCostSaving}</div>
+      //     </div>
+      //     <div class="result-item">
+      //       <div class="result-label">Payback Period</div>
+      //       <div class="result-value">${paybackMonths} mo</div>
+      //     </div>
+      //     <div class="result-item">
+      //       <div class="result-label">ROI</div>
+      //       <div class="result-value">${roiPercent}%</div>
+      //     </div>
+      //   </div>
+      // `;
 
-      let paybackText = '';
-      if (paybackMo === null) {
-        paybackText = null;
-      } else if (paybackMo < 0.033) {
-        paybackText = 'Less than 1 day';
-      } else if (paybackMo < 1) {
-        const days = Math.ceil(paybackMo * 30);
-        paybackText = `~${days} day${days !== 1 ? 's' : ''}`;
-      } else {
-        const mo = paybackMo.toFixed(1);
-        paybackText = `~${mo} month${mo !== '1.0' ? 's' : ''}`;
-      }
-
-      el.innerHTML = `
-        <div class="results-grid">
-          <div class="result-card">
-            <div class="result-label">Time Saved / Week</div>
-            <div class="result-value">${fmt(savedHrsWk,1)}<span style="font-size:16px;color:var(--text-muted)"> hrs</span></div>
-            <div class="result-sub">${fmt(savedHrsWk*60)} minutes across team</div>
-          </div>
-          <div class="result-card">
-            <div class="result-label">Hours Freed / Month</div>
-            <div class="result-value">${fmt(savedHrsMo,1)}<span style="font-size:16px;color:var(--text-muted)"> hrs</span></div>
-            <div class="result-sub">${fmt(savedHrsMo/teamSize,1)} hrs per person</div>
-          </div>
-          <div class="result-card highlight">
-            <div class="result-label">Net Cost Saved / Month</div>
-            <div class="result-value">$${fmt(netSavedMo)}</div>
-            <div class="result-sub">$${fmt(annualNet)} annually${toolCost > 0 ? ' · after $'+fmt(toolCost)+'/mo tool cost' : ''}</div>
-          </div>
-        </div>
-        ${paybackText ? `
-        <div class="payback-row">
-          <div class="payback-icon">⚡</div>
-          <div class="payback-text">
-            <strong>Payback Period: ${paybackText}</strong>
-            At this savings rate, the tool pays for itself in ${paybackText.toLowerCase()}.
-          </div>
-        </div>` : ''}
-        <div class="note">
-          <strong>Note:</strong> These figures reflect estimated labour cost savings from time freed up.
-          Actual ROI may vary based on task complexity, adoption rate, and indirect benefits like fewer errors and faster delivery.
-        </div>
-      `;
+      alert('TODO: implement the calculate() function above!');
     }
-
-    calculate();
   </script>
 </body>
 </html>

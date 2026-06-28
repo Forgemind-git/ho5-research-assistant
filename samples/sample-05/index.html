@@ -1,30 +1,26 @@
+<!-- TODO: Fill in the input labels, implement the calculate() function with your financial formula, and feed the result into the Chart.js chart -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Compound Savings Calculator</title>
+  <title>Finance Calculator — Starter</title>
+  <!-- Chart.js loaded from CDN — requires internet connection -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
-      --bg: #0f1117;
-      --surface: #1a1d27;
-      --surface2: #22263a;
-      --border: #2e334d;
-      --accent: #6c63ff;
-      --accent-light: #a89ff5;
-      --text: #e8eaf6;
-      --text-muted: #8b90b0;
-      --green: #34d399;
-      --green-bg: #0d2a20;
-      --blue: #60a5fa;
-      --purple: #a78bfa;
+      --bg: #F8F9FA;
+      --surface: #ffffff;
+      --border: #E5E7EB;
+      --accent: #7C3AED;
+      --text: #1a1a2e;
+      --text-muted: #6B7280;
       --radius: 12px;
       --radius-sm: 8px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
@@ -39,30 +35,40 @@
       border-radius: var(--radius);
       padding: 40px;
       width: 100%;
-      max-width: 720px;
+      max-width: 700px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
     }
     .badge {
       display: inline-block;
-      background: rgba(108,99,255,0.15);
-      color: var(--accent-light);
-      border: 1px solid rgba(108,99,255,0.3);
+      background: #EDE9FE;
+      color: var(--accent);
       border-radius: 20px;
       padding: 4px 14px;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
       margin-bottom: 16px;
     }
-    h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
-    .subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 36px; line-height: 1.5; }
+    h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+    .subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 28px; line-height: 1.6; }
+    .todo-bar {
+      background: #FEF3C7;
+      border-left: 4px solid #D97706;
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #92400E;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
     .inputs-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 32px;
+      gap: 18px;
+      margin-bottom: 28px;
     }
-    .field { display: flex; flex-direction: column; gap: 8px; }
+    .field { display: flex; flex-direction: column; gap: 7px; }
     label {
       font-size: 12px;
       font-weight: 700;
@@ -70,135 +76,124 @@
       letter-spacing: 0.06em;
       color: var(--text-muted);
     }
-    .input-wrap { position: relative; }
-    .prefix { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 14px; pointer-events: none; }
-    .suffix { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 12px; pointer-events: none; }
     input[type="number"] {
       width: 100%;
-      background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       color: var(--text);
       font-size: 16px;
-      padding: 12px 48px 12px 12px;
+      padding: 11px 14px;
       outline: none;
+      background: #F9FAFB;
       transition: border-color 0.2s;
       -moz-appearance: textfield;
     }
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
-    input[type="number"]:focus { border-color: var(--accent); }
-    input.has-prefix { padding-left: 28px; }
+    input[type="number"]:focus { border-color: var(--accent); background: #fff; }
     .summary-grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 32px;
+      gap: 14px;
+      margin-bottom: 28px;
     }
     .summary-card {
-      background: var(--surface2);
+      background: #F9FAFB;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 18px;
+    }
+    .summary-card.highlight { background: #EDE9FE; border-color: #DDD6FE; }
+    .s-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); margin-bottom: 7px; }
+    .s-value { font-size: 20px; font-weight: 800; color: var(--text); }
+    .summary-card.highlight .s-value { color: var(--accent); }
+    .s-sub { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+    .chart-wrap {
+      background: #F9FAFB;
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       padding: 20px;
+      margin-bottom: 16px;
     }
-    .summary-card.highlight {
-      background: var(--green-bg);
-      border-color: rgba(52,211,153,0.25);
-    }
-    .s-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); margin-bottom: 8px; }
-    .s-value { font-size: 22px; font-weight: 700; color: var(--text); }
-    .summary-card.highlight .s-value { color: var(--green); }
-    .s-sub { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
-    .chart-wrap {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 24px;
-      position: relative;
-    }
-    .chart-title {
-      font-size: 13px;
+    .chart-label {
+      font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--text-muted);
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
-    canvas { max-height: 300px; }
-    .footer { margin-top: 20px; font-size: 12px; color: var(--text-muted); text-align: center; line-height: 1.5; }
+    canvas { max-height: 280px; }
+    .footer { font-size: 12px; color: var(--text-muted); text-align: center; line-height: 1.5; }
   </style>
 </head>
 <body>
   <div class="card">
-    <div class="badge">Financial Calculator</div>
-    <h1>Compound Savings Calculator</h1>
-    <p class="subtitle">See how your money grows with compound interest. Adjust any input and the chart redraws live.</p>
+    <div class="badge">Sample 5 &mdash; Finance Calculator</div>
+    <h1><!-- TODO: name your calculator -->[Your Finance Calculator]</h1>
+    <p class="subtitle"><!-- TODO: one-line description -->[Adjust any input to see how the numbers change. Chart updates live.]</p>
 
+    <div class="todo-bar">
+      <strong>Student TODO:</strong> (1) Label each input field below. (2) Set realistic default values. (3) Implement <code>calculate()</code> with your formula. (4) Feed <code>labels[]</code> and <code>data[]</code> arrays into the chart. (5) Update the summary stat cards with your calculated values.
+    </div>
+
+    <!-- INPUT SECTION -->
     <div class="inputs-grid">
       <div class="field">
-        <label>Starting Amount</label>
-        <div class="input-wrap">
-          <span class="prefix">$</span>
-          <input type="number" id="principal" class="has-prefix" value="5000" min="0" step="100" />
-        </div>
+        <label>[TODO: Input 1 label — e.g. "Principal Amount (£)"]</label>
+        <input type="number" id="input1" value="0" min="0" oninput="calculate()" />
       </div>
       <div class="field">
-        <label>Monthly Contribution</label>
-        <div class="input-wrap">
-          <span class="prefix">$</span>
-          <input type="number" id="monthly" class="has-prefix" value="200" min="0" step="50" />
-        </div>
+        <label>[TODO: Input 2 label — e.g. "Interest Rate (% / year)"]</label>
+        <input type="number" id="input2" value="0" min="0" step="0.1" oninput="calculate()" />
       </div>
       <div class="field">
-        <label>Annual Interest Rate</label>
-        <div class="input-wrap">
-          <input type="number" id="rate" value="7" min="0" max="100" step="0.1" />
-          <span class="suffix">% / yr</span>
-        </div>
+        <label>[TODO: Input 3 label — e.g. "Term (years)"]</label>
+        <input type="number" id="input3" value="0" min="1" oninput="calculate()" />
       </div>
       <div class="field">
-        <label>Time Period</label>
-        <div class="input-wrap">
-          <input type="number" id="years" value="20" min="1" max="100" step="1" />
-          <span class="suffix">years</span>
-        </div>
+        <label>[TODO: Input 4 label — e.g. "Monthly Contribution (£) — optional"]</label>
+        <input type="number" id="input4" value="0" min="0" oninput="calculate()" />
       </div>
     </div>
 
+    <!-- SUMMARY STATS -->
     <div class="summary-grid">
       <div class="summary-card">
-        <div class="s-label">Total Contributed</div>
-        <div class="s-value" id="totalContrib">—</div>
-        <div class="s-sub">Principal + deposits</div>
+        <div class="s-label">[TODO: Stat 1 label]</div>
+        <!-- TODO: show your calculated result here -->
+        <div class="s-value" id="stat1">—</div>
+        <div class="s-sub">[TODO: sub-label]</div>
       </div>
       <div class="summary-card">
-        <div class="s-label">Interest Earned</div>
-        <div class="s-value" id="interestEarned">—</div>
-        <div class="s-sub">Growth from compounding</div>
+        <div class="s-label">[TODO: Stat 2 label]</div>
+        <!-- TODO: show your calculated result here -->
+        <div class="s-value" id="stat2">—</div>
+        <div class="s-sub">[TODO: sub-label]</div>
       </div>
       <div class="summary-card highlight">
-        <div class="s-label">Final Value</div>
-        <div class="s-value" id="finalValue">—</div>
-        <div class="s-sub">After <span id="yearsLabel">—</span> years</div>
+        <div class="s-label">[TODO: Highlight stat label — e.g. "Final Value"]</div>
+        <!-- TODO: show your main calculated result here -->
+        <div class="s-value" id="stat3">—</div>
+        <div class="s-sub">[TODO: sub-label]</div>
       </div>
     </div>
 
+    <!-- CHART -->
     <div class="chart-wrap">
-      <div class="chart-title">Balance Growth Year by Year</div>
-      <canvas id="growthChart"></canvas>
+      <div class="chart-label"><!-- TODO: chart title -->[TODO: Chart Title — e.g. "Balance Growth Year by Year"]</div>
+      <canvas id="myChart"></canvas>
     </div>
 
     <div class="footer">
-      Compounding is calculated monthly. Interest rate is applied as a nominal annual rate divided by 12 per month.
-      This tool is for illustrative purposes only and does not constitute financial advice.
+      <!-- TODO: add a disclaimer or methodology note -->
+      [TODO: Add a note about how the calculation works and any assumptions made.]
     </div>
   </div>
 
   <script>
-    const ctx = document.getElementById('growthChart').getContext('2d');
-
-    Chart.defaults.color = '#8b90b0';
-    Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
+    // Set up Chart.js with empty data — calculate() will fill it in
+    const ctx = document.getElementById('myChart').getContext('2d');
 
     const chart = new Chart(ctx, {
       type: 'line',
@@ -206,116 +201,79 @@
         labels: [],
         datasets: [
           {
-            label: 'Total Balance',
+            // TODO: name your primary line and choose a colour
+            label: '[TODO: Primary line name — e.g. "Total Balance"]',
             data: [],
-            borderColor: '#6c63ff',
-            backgroundColor: 'rgba(108,99,255,0.08)',
+            borderColor: '#7C3AED',
+            backgroundColor: 'rgba(124,58,237,0.08)',
             fill: true,
             tension: 0.3,
-            pointRadius: 3,
-            pointBackgroundColor: '#6c63ff',
-            borderWidth: 2
+            borderWidth: 2,
+            pointRadius: 3
           },
           {
-            label: 'Total Contributed',
+            // TODO: add a second line (e.g. "Total Contributed") or remove this dataset
+            label: '[TODO: Second line name — optional]',
             data: [],
-            borderColor: '#60a5fa',
-            backgroundColor: 'transparent',
+            borderColor: '#6B7280',
             borderDash: [5, 4],
             tension: 0.3,
-            pointRadius: 2,
-            borderWidth: 2
+            borderWidth: 2,
+            pointRadius: 2
           }
         ]
       },
       options: {
         responsive: true,
         interaction: { mode: 'index', intersect: false },
-        plugins: {
-          legend: {
-            position: 'top',
-            align: 'end',
-            labels: { boxWidth: 12, padding: 16, font: { size: 12 } }
-          },
-          tooltip: {
-            backgroundColor: '#1a1d27',
-            borderColor: '#2e334d',
-            borderWidth: 1,
-            titleColor: '#e8eaf6',
-            bodyColor: '#8b90b0',
-            padding: 12,
-            callbacks: {
-              label: ctx => ` ${ctx.dataset.label}: $${Math.round(ctx.raw).toLocaleString()}`
-            }
-          }
-        },
+        plugins: { legend: { position: 'top' } },
         scales: {
-          x: {
-            grid: { color: '#1e2232' },
-            ticks: { maxTicksLimit: 10 }
-          },
+          x: { grid: { color: '#F3F4F6' } },
           y: {
-            grid: { color: '#1e2232' },
+            grid: { color: '#F3F4F6' },
             ticks: {
-              callback: v => '$' + (v >= 1000 ? (v/1000).toFixed(0)+'k' : v)
+              // TODO: format Y axis labels with your currency symbol
+              callback: v => v.toLocaleString()
             }
           }
         }
       }
     });
 
-    function fmt(n) {
-      if (n >= 1_000_000) return '$' + (n / 1_000_000).toFixed(2) + 'M';
-      if (n >= 1000)      return '$' + Math.round(n).toLocaleString();
-      return '$' + n.toFixed(2);
-    }
-
     function calculate() {
-      const principal = parseFloat(document.getElementById('principal').value) || 0;
-      const monthly   = parseFloat(document.getElementById('monthly').value)   || 0;
-      const rate      = parseFloat(document.getElementById('rate').value)      || 0;
-      const years     = Math.max(1, Math.min(100, Math.round(parseFloat(document.getElementById('years').value) || 1)));
+      // TODO: read input values
+      // const input1 = parseFloat(document.getElementById('input1').value) || 0;
+      // const input2 = parseFloat(document.getElementById('input2').value) || 0;
+      // const input3 = parseFloat(document.getElementById('input3').value) || 0;
+      // const input4 = parseFloat(document.getElementById('input4').value) || 0;
 
-      const monthlyRate = rate / 100 / 12;
-      const labels = [];
-      const balanceData = [];
-      const contribData = [];
+      // TODO: build arrays of labels and data points for each time period
+      // Example structure (replace with your actual formula):
+      // const labels = [];
+      // const primaryData = [];
+      // const secondaryData = [];
+      // for (let year = 1; year <= input3; year++) {
+      //   labels.push('Year ' + year);
+      //   primaryData.push( /* your formula */ );
+      //   secondaryData.push( /* your formula */ );
+      // }
 
-      let balance = principal;
-      let totalContrib = principal;
+      // TODO: update summary stat cards
+      // document.getElementById('stat1').textContent = '£' + stat1Value.toLocaleString();
+      // document.getElementById('stat2').textContent = '£' + stat2Value.toLocaleString();
+      // document.getElementById('stat3').textContent = '£' + stat3Value.toLocaleString();
 
-      for (let y = 1; y <= years; y++) {
-        for (let m = 0; m < 12; m++) {
-          if (monthlyRate > 0) {
-            balance = balance * (1 + monthlyRate) + monthly;
-          } else {
-            balance = balance + monthly;
-          }
-          totalContrib += monthly;
-        }
-        labels.push(`Year ${y}`);
-        balanceData.push(Math.round(balance));
-        contribData.push(Math.round(totalContrib));
-      }
+      // TODO: feed data into the chart
+      // chart.data.labels = labels;
+      // chart.data.datasets[0].data = primaryData;
+      // chart.data.datasets[1].data = secondaryData;
+      // chart.update();
 
-      const totalContribFinal = principal + monthly * 12 * years;
-      const interestEarned    = balance - totalContribFinal;
-
-      document.getElementById('totalContrib').textContent   = fmt(totalContribFinal);
-      document.getElementById('interestEarned').textContent = fmt(interestEarned);
-      document.getElementById('finalValue').textContent     = fmt(balance);
-      document.getElementById('yearsLabel').textContent     = years;
-
-      chart.data.labels             = labels;
-      chart.data.datasets[0].data  = balanceData;
-      chart.data.datasets[1].data  = contribData;
-      chart.update();
+      // Remove this alert once you have implemented the function above
+      console.log('TODO: implement calculate()');
     }
 
-    ['principal','monthly','rate','years'].forEach(id =>
-      document.getElementById(id).addEventListener('input', calculate)
-    );
-
+    // Run on load
     calculate();
   </script>
 </body>

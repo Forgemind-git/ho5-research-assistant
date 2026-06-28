@@ -1,53 +1,23 @@
-# Sample 03 — Token & Context Window Explainer
+# HO5 Sample 3 — Concept Explainer
 
-> The user types any text into a textarea. The tool counts approximate tokens (chars/4), shows how many messages like this fit in different context windows (8k/32k/100k/200k), and colour-codes how full each window would be.
+## Your task
 
-## What This Tool Does
+A concept in your field confuses every newcomer. Build an interactive explainer Artifact that teaches it through a live example the learner controls.
 
-An interactive explainer that makes the abstract concept of "tokens" and "context windows" tangible. As the user types or pastes text, the tool instantly shows:
+## What to do
 
-- **Character count** — raw length of the text
-- **Word count** — whitespace-split word count
-- **Approximate token count** — estimated using the chars ÷ 4 heuristic
-- **Context window visualisation** — a colour-coded bar for each major AI model showing how full the window is and how many messages of that length would fit
+1. Open index.html in your browser — you should see the skeleton layout
+2. Read the TODO comments in the HTML and JavaScript
+3. Fill in: the concept you are explaining, a slider or input the learner controls, the dynamic explanation text, and a visual representation
+4. Test it by moving the control through its full range
+5. Push to GitHub and enable Pages for a shareable link
 
-**Context windows shown:**
-| Model | Window |
-|---|---|
-| GPT-3.5 Turbo | 4k tokens |
-| GPT-4 / Claude Instant | 8k tokens |
-| GPT-4 Turbo | 32k tokens |
-| Claude 3 Haiku | 48k tokens |
-| Claude 3.5 Sonnet | 200k tokens |
-| Gemini 1.5 Pro | 1M tokens |
+## Inputs your tool needs
 
-**Colour coding:**
-- Green — under 25% full
-- Yellow — 25–60% full
-- Orange — 60–90% full
-- Red — over 90% full (or exceeds window)
+- User controls a slider or input that changes the example
 
-## How to Use
+## Outputs your tool should show
 
-1. Open `index.html` in any modern browser.
-2. Type or paste any text into the textarea.
-3. Results update live — no button needed.
-
-## How to Host
-
-**Locally:** Double-click `index.html`.
-
-**Static hosting:**
-- [Netlify Drop](https://app.netlify.com/drop)
-- [GitHub Pages](https://pages.github.com/)
-- Any static file host
-
-## Tech Stack
-
-- Pure HTML5 / CSS3 / Vanilla JavaScript
-- No external dependencies
-- No build step required
-
-## Notes
-
-Token count uses the simple `characters ÷ 4` approximation, which is accurate for typical English prose. For exact token counts, use the Anthropic or OpenAI tokenizer libraries.
+- Dynamic explanation text that updates as the user moves the control
+- Visual representation (bar, meter, or table)
+- Key takeaway summary

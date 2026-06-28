@@ -1,43 +1,27 @@
-# Sample 02 — AI Plan Recommendation Quiz
+# HO5 Sample 2 — Decision Quiz
 
-> A 5-question quiz that recommends which Claude plan (Free/Pro/Team/API) fits the user best. Each question has 2-3 radio button answers. After answering all, shows a recommendation card with a clear reason.
+## Your task
 
-## What This Tool Does
+Customers cannot tell which of your plans fits them. Build a no-code decision quiz as a Claude Artifact with 4–5 questions that recommends the best option.
 
-A short decision quiz that scores the user's answers across four dimensions (use frequency, team size, usage limits, and need for admin control) and surfaces the best-fit Claude plan with a clear explanation and feature list.
+## What to do
 
-**Questions cover:**
-1. How the user primarily uses AI
-2. How many people need access
-3. How often they hit usage limits
-4. Whether they need the most powerful models
-5. Whether they need centralised billing / admin
+1. Open index.html in your browser — you should see the skeleton layout
+2. Read the TODO comments in the HTML and JavaScript
+3. Fill in: your 4–5 questions, the answer options, the scoring logic, and the recommendation cards
+4. Test it by running through all possible answer combinations
+5. Push to GitHub and enable Pages for a shareable link
 
-**Recommendation plans:**
-- **Claude Free** — light personal use, no card required
-- **Claude Pro** — daily power users who want priority access
-- **Claude Team** — organisations needing shared billing and collaboration
-- **Claude API** — builders integrating Claude into software or workflows
+## Inputs your tool needs
 
-## How to Use
+- Question 1 (with 3 answer options)
+- Question 2
+- Question 3
+- Question 4
+- Question 5
 
-1. Open `index.html` in any modern browser.
-2. Answer each question by clicking an option.
-3. Press **Next** after each answer; press **See My Result** on the last question.
-4. View your recommended plan card with explanation.
-5. Click **Retake Quiz** to start again.
+## Outputs your tool should show
 
-## How to Host
-
-**Locally:** Double-click `index.html`.
-
-**Static hosting:**
-- [Netlify Drop](https://app.netlify.com/drop) — drag the folder in
-- [GitHub Pages](https://pages.github.com/)
-- Any static file host (Cloudflare Pages, Vercel, etc.)
-
-## Tech Stack
-
-- Pure HTML5 / CSS3 / Vanilla JavaScript
-- No external dependencies
-- No build step required
+- Recommendation card
+- Why this option fits
+- Next step CTA

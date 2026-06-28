@@ -3,99 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HO5: Interactive Artifact Tool — Forgemind AI Claude Course</title>
+  <title>HO5: Interactive Artifact Tool — Starter</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:#F8F9FA; color:#1a1a2e; }
-    :root { --color: #7C3AED; }
-    header { background: var(--color); color:#fff; padding:40px 32px 32px; }
-    header .badge { font-size:13px; font-weight:700; letter-spacing:.08em; opacity:.8; text-transform:uppercase; margin-bottom:8px; }
-    header h1 { font-size:28px; font-weight:800; margin-bottom:8px; }
-    header p { font-size:15px; opacity:.85; max-width:640px; line-height:1.6; }
-    .sub-bar { background:#fff; border-left:4px solid var(--color); padding:14px 20px; margin:24px 32px; border-radius:4px; font-size:14px; color:#374151; line-height:1.6; box-shadow:0 1px 4px rgba(0,0,0,.07); }
-    .sub-bar strong { color:var(--color); }
+    body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#F8F9FA; color:#1a1a2e; }
+    header { background:#7C3AED; color:#fff; padding:40px 32px 32px; }
+    .badge { font-size:12px; font-weight:700; letter-spacing:.08em; opacity:.75; text-transform:uppercase; margin-bottom:8px; }
+    h1 { font-size:26px; font-weight:800; margin-bottom:6px; }
+    header p { font-size:14px; opacity:.85; max-width:600px; line-height:1.6; }
+    .starter-bar { background:#FEF3C7; border-left:4px solid #D97706; padding:14px 20px; margin:24px 32px; border-radius:4px; font-size:14px; color:#92400E; line-height:1.6; }
+    .starter-bar strong { color:#92400E; }
     .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; padding:0 32px 40px; }
     .card { background:#fff; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,.08); overflow:hidden; }
-    .card:hover { box-shadow:0 4px 16px rgba(0,0,0,.13); }
-    .card-top { background:var(--color); padding:14px 18px; display:flex; align-items:center; gap:10px; }
-    .card-num { background:rgba(255,255,255,.25); color:#fff; font-weight:800; font-size:12px; border-radius:20px; padding:2px 9px; }
-    .card-top h3 { color:#fff; font-size:14.5px; font-weight:700; }
-    .card-body { padding:16px 18px; }
+    .card-top { background:#7C3AED; padding:12px 16px; display:flex; align-items:center; gap:10px; }
+    .num { background:rgba(255,255,255,.25); color:#fff; font-weight:800; font-size:12px; border-radius:20px; padding:2px 9px; }
+    .card-top h3 { color:#fff; font-size:14px; font-weight:700; }
+    .card-body { padding:16px; }
     .card-body p { font-size:13px; color:#4B5563; line-height:1.6; margin-bottom:14px; }
-    .btn { display:inline-flex; align-items:center; gap:6px; padding:8px 16px; background:var(--color); color:#fff; text-decoration:none; border-radius:6px; font-size:13px; font-weight:600; }
-    .btn:hover { opacity:.88; }
-    footer { text-align:center; padding:24px; color:#9CA3AF; font-size:13px; border-top:1px solid #E5E7EB; margin-top:8px; }
-    @media(max-width:580px){ .grid{ grid-template-columns:1fr; padding:0 14px 28px; } header{ padding:24px 16px; } .sub-bar{ margin:14px 14px; } }
+    .todo-badge { display:inline-block; background:#FEF3C7; color:#92400E; font-size:11px; font-weight:700; padding:2px 8px; border-radius:20px; margin-bottom:12px; }
+    .btn { display:inline-flex; align-items:center; gap:6px; padding:8px 14px; background:#7C3AED; color:#fff; text-decoration:none; border-radius:6px; font-size:13px; font-weight:600; }
+    footer { text-align:center; padding:24px; color:#9CA3AF; font-size:13px; border-top:1px solid #E5E7EB; }
   </style>
 </head>
 <body>
   <header>
-    <div class="badge">HO5</div>
+    <div class="badge">HO5 &middot; Forgemind AI Claude Course &middot; Starter Template</div>
     <h1>Interactive Artifact Tool</h1>
-    <p>Self-contained interactive HTML tools (calculators, quizzes, scorecard) — no server or API key needed.</p>
+    <p>Your starting point. Pick ONE sample below, read the problem statement, and build it using Claude.ai.</p>
   </header>
-
-  <div class="sub-bar">
-    <strong>Claude.ai subscription required</strong> — Open index.html in any browser. These tools run 100% client-side. Host on GitHub Pages for a shareable link.
+  <div class="starter-bar">
+    <strong>This is the starter branch.</strong> It gives you the structure &mdash; you supply the thinking and the Claude.ai work.
+    To see a complete reference, switch to the <code>main</code> branch or visit the GitHub Pages site.
   </div>
-
   <div class="grid">
+
     <div class="card">
-      <div class="card-top">
-        <span class="card-num">01</span>
-        <h3>AI Tool ROI Calculator</h3>
-      </div>
+      <div class="card-top"><span class="num">Sample 1</span><h3>roi calculator</h3></div>
       <div class="card-body">
-        <p>Calculate the return on investment for AI tools based on team size, hours saved, and tool cost — results update live as you type.</p>
-        <a class="btn" href="./samples/sample-01/">View Sample →</a>
+        <span class="todo-badge">&#x2B1C; Not started</span>
+        <p>Prospects keep asking your sales team &ldquo;what will this actually save me?&rdquo; Build an interactive ROI calculator as a Claude Artifact that takes team size, hours and hourly cost, and shows time saved, money saved and payback period.</p>
+        <a href="./samples/sample-01/" class="btn">Start here &rarr;</a>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-top">
-        <span class="card-num">02</span>
-        <h3>AI Plan Recommendation Quiz</h3>
-      </div>
+      <div class="card-top"><span class="num">Sample 2</span><h3>decision quiz</h3></div>
       <div class="card-body">
-        <p>Answer a short quiz about your use case and team needs to get a personalized Claude plan recommendation with reasoning.</p>
-        <a class="btn" href="./samples/sample-02/">View Sample →</a>
+        <span class="todo-badge">&#x2B1C; Not started</span>
+        <p>Customers cannot tell which of your plans fits them. Build a no-code decision quiz as a Claude Artifact with 4&ndash;5 questions that recommends the best option.</p>
+        <a href="./samples/sample-02/" class="btn">Start here &rarr;</a>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-top">
-        <span class="card-num">03</span>
-        <h3>Token &amp; Context Window Explainer</h3>
-      </div>
+      <div class="card-top"><span class="num">Sample 3</span><h3>concept explainer</h3></div>
       <div class="card-body">
-        <p>Interactive explainer showing how tokens work, how context windows affect output, and what fits inside different model limits.</p>
-        <a class="btn" href="./samples/sample-03/">View Sample →</a>
+        <span class="todo-badge">&#x2B1C; Not started</span>
+        <p>A concept in your field confuses every newcomer. Build an interactive explainer Artifact that teaches it through a live example the learner controls.</p>
+        <a href="./samples/sample-03/" class="btn">Start here &rarr;</a>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-top">
-        <span class="card-num">04</span>
-        <h3>Prompt Readiness Self-Assessment</h3>
-      </div>
+      <div class="card-top"><span class="num">Sample 4</span><h3>self assessment</h3></div>
       <div class="card-body">
-        <p>Score your prompting skills across key dimensions and get a readiness scorecard with targeted improvement suggestions.</p>
-        <a class="btn" href="./samples/sample-04/">View Sample →</a>
+        <span class="todo-badge">&#x2B1C; Not started</span>
+        <p>Your audience wants to know &ldquo;how ready am I?&rdquo; Build a self-assessment scorecard Artifact with 8&ndash;10 yes/no or rated questions, an auto-scored result, and personalised tips.</p>
+        <a href="./samples/sample-04/" class="btn">Start here &rarr;</a>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-top">
-        <span class="card-num">05</span>
-        <h3>Compound Savings Calculator</h3>
-      </div>
+      <div class="card-top"><span class="num">Sample 5</span><h3>finance calculator</h3></div>
       <div class="card-body">
-        <p>Visualize how AI-driven productivity gains compound over time, projecting cumulative hours and cost savings across months and years.</p>
-        <a class="btn" href="./samples/sample-05/">View Sample →</a>
+        <span class="todo-badge">&#x2B1C; Not started</span>
+        <p>People weighing a loan or savings goal cannot picture how the numbers play out. Build an interactive calculator Artifact that shows compound growth or loan repayments on a chart.</p>
+        <a href="./samples/sample-05/" class="btn">Start here &rarr;</a>
       </div>
     </div>
+
   </div>
-
-  <footer>Forgemind AI · Claude Course · HO5 · github.com/Forgemind-git/ho5-interactive-artifact</footer>
+  <footer>Forgemind AI &middot; Claude Course &middot; HO5 &middot; <a href="https://github.com/Forgemind-git/ho5-interactive-artifact" style="color:#7C3AED">github.com/Forgemind-git/ho5-interactive-artifact</a></footer>
 </body>
 </html>

@@ -20,6 +20,45 @@ This single-page calculator helps teams quickly estimate the return on investmen
 - Annual net savings
 - Payback period (how quickly the tool pays for itself)
 
+## Use it with your Claude.ai subscription
+
+No API key needed — just your normal Claude.ai login. This is exactly the kind of tool Claude builds for you as an **Artifact** (the live preview panel that appears on the right of the chat).
+
+1. Open **Claude.ai** and start a new chat.
+2. Copy the **example prompt** below and paste it in. Send it.
+3. Claude builds the calculator live in an **Artifact** panel on the right. Type some numbers and watch it work.
+4. Want it different? Just ask in plain English — e.g. *"add a field for number of weeks off per year"* or *"show the savings in euros"*. Claude updates the artifact.
+5. To share it, click **Publish** on the artifact to get a link — or click the **`</>` code** button, copy the HTML, and save it as `index.html`. (This folder already has a finished copy you can open right now.)
+
+## The example prompt
+
+Copy this exactly into Claude.ai:
+
+```
+Build me a single-page interactive ROI calculator as an artifact (one self-contained HTML file, no external libraries).
+
+Input fields:
+- Team size (number of people)
+- Hours spent on the task per week, per person
+- Average hourly rate in USD
+- Expected AI time-saving percentage (e.g. 30)
+- Monthly tool cost in USD (optional)
+
+As the user types, update the results live — no submit button. Show:
+- Time saved per week (hours across the whole team)
+- Hours freed per month
+- Net cost saved per month (gross savings minus the tool cost)
+- Annual net savings
+- Payback period (how quickly the tool pays for itself)
+
+Use clean, modern styling with result cards and big numbers. Make it look professional enough to share with a prospect.
+```
+
+## Make it your own
+- Swap "AI tool" for whatever you actually sell — rename the inputs to match your product.
+- Ask Claude to add your brand colours and a logo.
+- Add a field that matters to your buyers (e.g. error-reduction %, or seats vs. usage pricing).
+
 ## How to Use
 
 1. Open `index.html` in any modern browser — no install or server needed.

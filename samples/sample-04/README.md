@@ -1,88 +1,50 @@
-# Sample 04 — Prompt Readiness Self-Assessment
+# Sample 04 — Exam / Certification Study Knowledge Base
 
-> A 10-question self-assessment on prompting skill (does the user include role? context? output format? etc.). Each yes=1 point. Returns a score band (Beginner/Practitioner/Expert) and 2-3 tailored improvement tips based on which answers were No.
+> A NotebookLM knowledge base over your syllabus and dense readings that generates a **study guide** and **FAQ** and answers revision questions with **cited** answers you can trust. Ships as a notebook + study guide + 5 cited Q&A + an Audio Overview.
 
-## What This Tool Does
+## The problem statement
 
-A self-assessment scorecard that evaluates a user's current prompting habits across 10 evidence-based best practices. The tool scores responses and returns a band-level result with specific, actionable tips for the areas the user is missing.
+> *"You're revising for an exam or certification from a syllabus and dense readings. Build a NotebookLM knowledge base over those materials, generate a study guide and FAQ, and ask questions that return cited answers you can trust. Success: a notebook with a study guide + 5 cited Q&A + an Audio Overview, documented in your repo."*
 
-**The 10 dimensions assessed:**
-1. Assigning a role to the AI
-2. Providing context and goals
-3. Specifying output format
-4. Setting length expectations
-5. Using few-shot examples
-6. Defining the audience
-7. Iterating on prompts
-8. Adding negative constraints
-9. Testing across edge cases
-10. Chaining complex tasks into steps
+## What you'll build
 
-**Score bands:**
-| Score | Band |
-|---|---|
-| 0–3 | Beginner |
-| 4–6 | Practitioner |
-| 7–10 | Expert |
+A **research knowledge base** built from your real study materials: the exam guide, the syllabus, and the dense readings/whitepapers behind it. NotebookLM can then **auto-generate a study guide and an FAQ** from those materials, and answer any revision question with a **citation to the exact reading** — so you're revising from the source, not from something the model half-remembers (which is how you learn wrong facts).
 
-**Tips:** The 3 "No" answers that appear earliest in the list generate personalised improvement tip cards.
+For this reference we're revising for the **AWS Certified Solutions Architect – Associate** exam, but the shape works for any course: a university module, a medical board, a language cert. This is genuine **RAG** — retrieval across your readings, with citations — so when it says "S3 is object storage," you can click through to the page that says so.
+
+Saved here:
+- **`sources.md`** — the study materials in the notebook.
+- **`qa.md`** — five revision questions with cited answers.
+- **`briefing.md`** — the generated **study guide** (one page) plus FAQ pointers.
+
+> Worked reference for the AWS SAA-C03 exam. Swap in your own syllabus and readings.
 
 ## Use it with your Claude.ai subscription
 
-No API key needed — just your normal Claude.ai login. Claude builds this scorecard for you live as an **Artifact** (the preview panel on the right of the chat).
+No API key, no code.
 
-1. Open **Claude.ai** and start a new chat.
-2. Copy the **example prompt** below and paste it in. Send it.
-3. Claude builds the self-assessment in an **Artifact** panel on the right. Answer the questions to test it.
-4. Want changes? Just ask — e.g. *"make it 8 questions instead of 10"* or *"change the topic to social-media skills"*. Claude updates the artifact.
-5. To share it, click **Publish** for a link — or click the **`</>` code** button, copy the HTML, and save it as `index.html`. (A finished copy is already in this folder.)
+1. Go to **[notebooklm.google.com](https://notebooklm.google.com)**, sign in, **Create new notebook**.
+2. **Add source**: upload the **exam guide PDF**, the **syllabus**, and your key **readings/whitepapers** (PDF or URL). Add lecture notes as **pasted text** if you have them (see `sources.md`).
+3. In **Studio**, click **Study guide** — NotebookLM generates one from your materials. Click **FAQ** for a Q&A sheet. Copy the study guide into `briefing.md`.
+4. Ask revision questions in the chat, e.g. *"When should I use S3 vs EBS vs EFS? Cite the reading."* Check the **citation**, then save into `qa.md`.
+5. Generate an **Audio Overview** and listen to it as revision on the go. Paste the link below.
+6. (Optional) **Share** the notebook with your study group.
 
-## The example prompt
+**No API key needed.**
 
-Copy this exactly into Claude.ai:
+## Where Claude.ai fits
+- Ask Claude to help you **turn the syllabus into a list of topics to quiz yourself on**.
+- Paste NotebookLM's cited answers into Claude and ask it to **make flashcards** — the citations keep the cards accurate.
 
-```
-Build me a prompting-skills self-assessment scorecard as an artifact (one self-contained HTML file, no external libraries).
-
-Ask 10 Yes/No questions about good prompting habits:
-1. Do you assign a role to the AI?
-2. Do you give context and your goal?
-3. Do you specify the output format you want?
-4. Do you set length expectations?
-5. Do you give examples of what good looks like?
-6. Do you define the audience?
-7. Do you iterate and refine your prompt?
-8. Do you add "don't do X" constraints?
-9. Do you test prompts on tricky/edge cases?
-10. Do you break complex tasks into smaller chained prompts?
-
-Each Yes = 1 point. The "See My Score" button stays disabled until all 10 are answered. When the user submits, show: a score out of 10, a band (0-3 Beginner, 4-6 Practitioner, 7-10 Expert), 2-3 tailored improvement tips based on which answers were No, and a breakdown of every answer. Add a Retake button. Use clean, modern styling.
-```
+## This notebook
+- **Notebook name:** `AWS SAA-C03 — Study`
+- **Shared notebook link:** _paste your NotebookLM Share link here_
+- **Audio Overview link:** _paste your Audio Overview Share link here_
 
 ## Make it your own
-- Rewrite the 10 questions for whatever skill you teach (writing, sales, design...).
-- Change the band names and the advice to match your own framework.
-- Ask Claude to add a "book a session" call-to-action under a low score.
+- Replace the AWS materials with **your** syllabus and readings. The exam guide + 3–6 core readings is a strong start.
+- Use the **FAQ** and **Study guide** buttons first — they turn dense readings into a revision plan in seconds.
+- Ask "explain X like I'm new to it, then cite where to read more" to combine a plain explanation with a trustworthy source.
 
-## How to Use
-
-1. Open `index.html` in any modern browser.
-2. Answer all 10 Yes/No questions.
-3. Press **See My Score** (enabled after all questions are answered).
-4. View your band, score, personalised tips, and full answer breakdown.
-5. Click **Retake Assessment** to start over.
-
-## How to Host
-
-**Locally:** Double-click `index.html`.
-
-**Static hosting:**
-- [Netlify Drop](https://app.netlify.com/drop)
-- [GitHub Pages](https://pages.github.com/)
-- Any static file host
-
-## Tech Stack
-
-- Pure HTML5 / CSS3 / Vanilla JavaScript
-- No external dependencies
-- No build step required
+## How this differs from HO4
+HO4 answered from one pasted passage. Here NotebookLM **retrieves across your whole reading list** and cites the source — so a revision answer is always checkable against the actual material, which is exactly what you want before an exam.

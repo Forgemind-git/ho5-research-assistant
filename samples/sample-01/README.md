@@ -1,81 +1,56 @@
-# Sample 01 — AI Tool ROI Calculator
+# Sample 01 — Competitor Intelligence Knowledge Base
 
-> A calculator where the user enters team size, hours spent on a task per week, hourly rate, and expected AI time saving (%). Returns: time saved per week, cost saved per month, and a payback period. Live-updating as user types.
+> A NotebookLM knowledge base built over your competitors' websites, launch posts, reviews and docs. You ask *"what are their three biggest weaknesses?"* and get an answer that **cites the exact source**. Ships as a notebook + a cited gap-analysis brief + an Audio Overview, all documented here.
 
-## What This Tool Does
+## The problem statement
 
-This single-page calculator helps teams quickly estimate the return on investment from adopting an AI tool. Enter four inputs and see the projected savings update in real time — no form submission required.
+> *"As a marketer you can't keep up with what competitors are shipping. Build a NotebookLM knowledge base over their sites, launch posts, reviews and docs, then ask 'what are their three biggest weaknesses?' and get answers that cite the exact source. Success: a notebook + a cited gap-analysis brief + an Audio Overview, documented in your repo."*
 
-**Inputs:**
-- Team size (number of people)
-- Hours spent on the relevant task per week (per person)
-- Average hourly rate (USD)
-- Expected AI time saving percentage (e.g. 30%)
-- Monthly tool cost (optional — enables payback period calculation)
+## What you'll build
 
-**Outputs:**
-- Time saved per week (hours across the whole team)
-- Hours freed per month (team total and per-person breakdown)
-- Net cost saved per month (gross savings minus tool cost)
-- Annual net savings
-- Payback period (how quickly the tool pays for itself)
+A **research knowledge base** in Google NotebookLM. You add your competitors' real sources (marketing pages, launch blog posts, G2/Reddit reviews, help docs, pricing pages). NotebookLM reads only *those* sources and answers your questions with a **citation next to every claim** — so you can click through and check it came from a real place. That's the honest difference from a normal chatbot: this is **retrieval + generation (RAG)** over *your* material, not the model guessing from memory.
+
+By the end you have four things saved in this folder:
+- **`sources.md`** — the exact list of sources that went into the notebook.
+- **`qa.md`** — five real questions with the cited answers NotebookLM gave.
+- **`briefing.md`** — a one-page gap-analysis brief you could hand to your team.
+- an **Audio Overview** link (NotebookLM turns the notebook into a two-host podcast).
+
+> This sample is a **worked reference** for a fictional PM-software company, *TaskFlow*, sizing up three rivals. The sources below are illustrative examples — swap in your own real competitors.
 
 ## Use it with your Claude.ai subscription
 
-No API key needed — just your normal Claude.ai login. This is exactly the kind of tool Claude builds for you as an **Artifact** (the live preview panel that appears on the right of the chat).
+You do **not** need an API key or any code. NotebookLM is free with a Google account, and this whole hands-on is no-code.
 
-1. Open **Claude.ai** and start a new chat.
-2. Copy the **example prompt** below and paste it in. Send it.
-3. Claude builds the calculator live in an **Artifact** panel on the right. Type some numbers and watch it work.
-4. Want it different? Just ask in plain English — e.g. *"add a field for number of weeks off per year"* or *"show the savings in euros"*. Claude updates the artifact.
-5. To share it, click **Publish** on the artifact to get a link — or click the **`</>` code** button, copy the HTML, and save it as `index.html`. (This folder already has a finished copy you can open right now.)
+1. Go to **[notebooklm.google.com](https://notebooklm.google.com)** and sign in with your Google account. Click **Create new notebook**.
+2. Click **Add source**. Add your competitors' material — you can paste a **website URL**, upload a **PDF**, paste **copied text**, or add a **YouTube link**. Aim for 6–12 good sources across 2–3 competitors (see `sources.md` for the shape).
+3. Wait a few seconds for NotebookLM to ingest them. In the chat box, ask a real question, e.g. *"What are the three biggest weaknesses customers complain about for each competitor? Cite the source for each."*
+4. Read the answer — every claim has a small **numbered citation**. Click one to jump to the exact sentence in the source it came from. Save the good Q&A into `qa.md`.
+5. In the **Studio** panel, click **Briefing doc** (or **Study guide** / **FAQ**) to generate a summary. Copy it into `briefing.md`.
+6. Still in **Studio**, click **Audio Overview → Generate**. In a couple of minutes you get a podcast-style discussion of your sources. Click **Share** to get a link and paste it below.
+7. (Optional) Click **Share** at the top of the notebook to make it link-viewable, and paste that link below too.
 
-## The example prompt
+**No API key needed.** Everything above uses your normal Google login.
 
-Copy this exactly into Claude.ai:
+## Where Claude.ai fits
 
-```
-Build me a single-page interactive ROI calculator as an artifact (one self-contained HTML file, no external libraries).
+Use your Claude.ai subscription as the *drafting partner around* the notebook:
+- Ask Claude to help you **choose which sources** to add and **write sharp questions** to ask NotebookLM.
+- Paste NotebookLM's cited answers into Claude and ask it to **tighten the gap-analysis brief** for a specific audience (e.g. your sales team).
 
-Input fields:
-- Team size (number of people)
-- Hours spent on the task per week, per person
-- Average hourly rate in USD
-- Expected AI time-saving percentage (e.g. 30)
-- Monthly tool cost in USD (optional)
+NotebookLM gives you **cited retrieval over your sources**; Claude helps you **plan and polish**.
 
-As the user types, update the results live — no submit button. Show:
-- Time saved per week (hours across the whole team)
-- Hours freed per month
-- Net cost saved per month (gross savings minus the tool cost)
-- Annual net savings
-- Payback period (how quickly the tool pays for itself)
+## This notebook
 
-Use clean, modern styling with result cards and big numbers. Make it look professional enough to share with a prospect.
-```
+- **Notebook name:** `TaskFlow — Competitor Intelligence`
+- **Shared notebook link:** _paste your NotebookLM Share link here_
+- **Audio Overview link:** _paste your Audio Overview Share link here_
 
 ## Make it your own
-- Swap "AI tool" for whatever you actually sell — rename the inputs to match your product.
-- Ask Claude to add your brand colours and a logo.
-- Add a field that matters to your buyers (e.g. error-reduction %, or seats vs. usage pricing).
+- Replace the three example competitors with your real ones. Six to twelve sources is plenty to start.
+- Add a **review** source (G2, Trustpilot, Reddit, app-store reviews) for each competitor — that's where the honest weaknesses live.
+- Re-run the questions monthly. When a competitor ships something new, add the launch post as a source and ask *"what changed since last quarter?"*
 
-## How to Use
+## How this differs from HO4
 
-1. Open `index.html` in any modern browser — no install or server needed.
-2. Adjust the sliders/inputs to match your team's situation.
-3. Results update instantly as you type.
-
-## How to Host
-
-**Locally:** Double-click `index.html` or drag it into a browser tab.
-
-**Static hosting (free):**
-- [Netlify Drop](https://app.netlify.com/drop) — drag the folder in
-- [GitHub Pages](https://pages.github.com/) — push to a repo and enable Pages
-- [Vercel](https://vercel.com/) — `vercel --prod` from this directory
-
-## Tech Stack
-
-- Pure HTML5 / CSS3 / Vanilla JavaScript
-- No external dependencies
-- No build step required
+HO4 was **in-context grounding** — you pasted text into a prompt and the model answered from that text. HO5 is real **retrieval**: NotebookLM stores many sources, *finds* the relevant passages for each question, and cites them. That retrieval step is what makes this genuine RAG.

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exam / Certification Study Knowledge Base · HO5 · ForgeMind AI</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  :root{
+    --pageBg:#F7F7F3; --headerBg:#0F0F10; --headerText:#F5F5F2; --headerMuted:#A1A1AA;
+    --headerBorder:rgba(255,255,255,.12); --cardBg:#fff; --border:#E5E5E0;
+    --text:#111; --textSec:#6B7280; --textMuted:#999; --primary:#dc2626; --primaryHover:#b91c1c;
+    --hover:#EFEEE6; --green:#0F6E56; --purple:#534AB7; --amber:#854F0B;
+    --shadowSm:0 1px 2px rgba(0,0,0,.08); --shadowMd:0 8px 24px rgba(0,0,0,.06);
+    --font:'DM Sans',system-ui,sans-serif; --mono:'DM Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{font-family:var(--font);background:var(--pageBg);color:var(--text);}
+  a{color:inherit;}
+  header{height:56px;background:var(--headerBg);color:var(--headerText);display:flex;align-items:center;
+    padding:0 20px;position:sticky;top:0;z-index:10;border-bottom:1px solid var(--headerBorder);}
+  .wordmark{font-weight:900;font-size:16px;letter-spacing:.02em;display:flex;align-items:center;gap:2px;}
+  .wordmark .badge{background:var(--primary);color:#fff;padding:1px 6px;border-radius:5px;margin-left:2px;font-weight:800;}
+  .header-right{margin-left:auto;color:var(--headerMuted);font-size:12px;font-weight:500;display:flex;align-items:center;gap:8px;}
+  .header-right .dot{width:6px;height:6px;border-radius:99px;background:var(--green);}
+  .wrap{max-width:960px;margin:0 auto;padding:32px 24px 64px;}
+  .back{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;color:var(--textSec);text-decoration:none;margin-bottom:18px;}
+  .back:hover{color:var(--primary);}
+  .eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);}
+  h1{font-size:30px;font-weight:700;margin:8px 0 14px;letter-spacing:-.01em;}
+  .pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;}
+  .pill{font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px;font-family:var(--mono);}
+  .pill.wk{background:#E7F0FE;color:#1877F2;} .pill.mod{background:#EEEDFE;color:#3C3489;}
+  .pill.fmt{background:#E1F5EE;color:#0F6E56;} .pill.kind{background:#FAEEDA;color:#854F0B;}
+  .card{background:var(--cardBg);border:1px solid var(--border);border-radius:8px;box-shadow:var(--shadowSm);padding:20px;}
+  .done{display:flex;align-items:flex-start;gap:12px;margin-bottom:28px;}
+  .done .ic{width:34px;height:34px;border-radius:8px;background:#FCEBEB;color:var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .done .cap{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--textMuted);}
+  .done .val{font-size:15px;font-weight:600;margin-top:3px;line-height:1.5;}
+  .section-h{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:600;margin:34px 0 14px;}
+  .section-h svg{color:var(--primary);}
+  .sub{font-size:13.5px;color:var(--textSec);margin:-8px 0 16px;line-height:1.6;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .ship{background:var(--cardBg);border:1px solid var(--border);border-radius:8px;box-shadow:var(--shadowSm);
+    padding:16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;transition:box-shadow .15s,transform .15s;}
+  .ship:hover{box-shadow:var(--shadowMd);transform:translateY(-1px);}
+  .ship .fn{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;font-weight:500;color:var(--primary);}
+  .ship p{font-size:12.5px;line-height:1.5;color:var(--textSec);margin:0;}
+  .steps{counter-reset:s;display:flex;flex-direction:column;gap:10px;}
+  .step{display:flex;gap:12px;align-items:flex-start;}
+  .step .n{counter-increment:s;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--primary);
+    border:1.5px solid var(--border);border-radius:99px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .step .n::before{content:counter(s);}
+  .step p{font-size:13.5px;line-height:1.5;margin:2px 0;}
+  .note{background:var(--cardBg);border:1px solid var(--border);border-radius:8px;box-shadow:var(--shadowSm);padding:16px 18px;}
+  .note ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--textSec);line-height:1.7;}
+  .tip{background:#FDF6F6;border:1px solid #F3C6C6;border-radius:8px;padding:16px 18px;margin-top:22px;}
+  .tip .th{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;color:var(--primary);margin-bottom:6px;}
+  .tip p{margin:6px 0 0;font-size:13px;color:var(--textSec);line-height:1.6;}
+  code{font-family:var(--mono);font-size:12px;background:#F1F0EA;padding:1px 5px;border-radius:4px;}
+  footer{border-top:1px solid var(--border);margin-top:40px;padding-top:18px;font-size:12px;color:var(--textMuted);font-family:var(--mono);text-align:center;}
+  @media(max-width:680px){.grid{grid-template-columns:1fr;} h1{font-size:24px;}}
+</style>
+</head>
+<body>
+  <header>
+    <span class="wordmark">FORGE<span class="badge">COURSE</span></span>
+    <span class="header-right"><span class="dot"></span>ForgeMind AI · Hands-On Portfolio</span>
+  </header>
+
+  <div class="wrap">
+    <a class="back" href="../../"><i data-lucide="arrow-left"></i> HO5 · all problem statements</a>
+    <div class="eyebrow">Sample 04 · Hands-On 5 · Week 3 · Module M9</div>
+    <h1>Exam / Certification Study Knowledge Base</h1>
+    <div class="pills">
+      <span class="pill wk">Week 3</span>
+      <span class="pill mod">M9 · Research &amp; RAG</span>
+      <span class="pill fmt">Solo</span>
+      <span class="pill kind">Copy-and-use template</span>
+    </div>
+
+    <div class="done card">
+      <div class="ic"><i data-lucide="target"></i></div>
+      <div>
+        <div class="cap">Problem statement</div>
+        <div class="val">You're revising for an exam or certification from a syllabus and dense readings. Build a NotebookLM knowledge base over those materials, generate a study guide and FAQ, and ask questions that return cited answers you can trust. Success: a notebook with a study guide + 5 cited Q&A + an Audio Overview.</div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <div class="th"><i data-lucide="copy"></i> Copy-and-use template</div>
+      <p>This folder comes with a worked example already filled in, plus clearly-marked <code>&lt;&lt; … &gt;&gt;</code> blanks for your own material. Clone it, swap in your real sources, and you have your knowledge base. For the fully-worked reference, switch to the <code>main</code> branch.</p>
+    </div>
+
+    <div class="section-h"><i data-lucide="database"></i> What you build</div>
+    <div class="sub">A research knowledge base built from your real study materials: the exam guide, the syllabus, and the dense readings/whitepapers behind it. NotebookLM can <b>auto-generate a study guide and an FAQ</b> from those materials, and answer any revision question with a <b>citation to the exact reading</b> — so you're revising from the source, not from something the model half-remembers. For this reference we're revising for the AWS Certified Solutions Architect – Associate exam, but the shape works for any course. Genuine RAG: when it says “S3 is object storage,” you can click through to the page that says so.</div>
+
+    <div class="section-h"><i data-lucide="folder-open"></i> What ships in this folder</div>
+    <div class="grid">
+      <a class="ship" href="./sources.md"><span class="fn"><i data-lucide="file-text"></i> sources.md</span><p>The exact list of sources that went into the notebook.</p></a>
+      <a class="ship" href="./qa.md"><span class="fn"><i data-lucide="messages-square"></i> qa.md</span><p>Real questions with the cited answers NotebookLM gave.</p></a>
+      <a class="ship" href="./briefing.md"><span class="fn"><i data-lucide="file-check-2"></i> briefing.md</span><p>A one-page briefing / study guide you could hand over.</p></a>
+    </div>
+
+    <div class="section-h"><i data-lucide="git-branch"></i> Build it in NotebookLM</div>
+    <div class="sub">No API key, no code — NotebookLM is free with a Google account.</div>
+    <div class="steps card">
+      <div class="step"><span class="n"></span><p>Go to <b>notebooklm.google.com</b>, sign in, <b>Create new notebook</b>.</p></div>
+      <div class="step"><span class="n"></span><p><b>Add source</b>: upload the exam guide PDF, the syllabus, and your key readings/whitepapers (PDF or URL); add lecture notes as pasted text.</p></div>
+      <div class="step"><span class="n"></span><p>In <b>Studio</b>, click <b>Study guide</b> — NotebookLM generates one from your materials. Click <b>FAQ</b> for a Q&amp;A sheet. Copy the study guide into <code>briefing.md</code>.</p></div>
+      <div class="step"><span class="n"></span><p>Ask revision questions, e.g. <i>“When should I use S3 vs EBS vs EFS? Cite the reading.”</i> Check the citation, then save into <code>qa.md</code>.</p></div>
+      <div class="step"><span class="n"></span><p>Generate an <b>Audio Overview</b> to revise on the go; optionally Share the notebook with your study group.</p></div>
+    </div>
+
+    <div class="section-h"><i data-lucide="bot"></i> Where Claude.ai fits</div>
+    <div class="note">
+      <ul>
+        <li>Ask Claude to help you <b>turn the syllabus into a list of topics to quiz yourself on</b>.</li>
+        <li>Paste NotebookLM's cited answers into Claude and ask it to <b>make flashcards</b> — the citations keep the cards accurate.</li>
+      </ul>
+    </div>
+
+    <div class="tip">
+      <div class="th"><i data-lucide="search"></i> How this differs from HO4</div>
+      <p>HO4 answered from one pasted passage. Here NotebookLM retrieves across your whole reading list and cites the source — so a revision answer is always checkable against the actual material, which is exactly what you want before an exam.</p>
+    </div>
+
+    <footer>HO5 · Sample 04 · Solo · ForgeMind AI — AI Productivity Essentials · Module M9 (Week 3)</footer>
+  </div>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 # HO5 — Research Knowledge Base (starter template)
 
-> Hands-on portfolio project · **Week 3** · **Solo** · module M9. Part of the **ForgeMind AI — AI Productivity Essentials** course.
+> Hands-on portfolio project · **Week 3** · **Solo** · module M8. Part of the **ForgeMind AI — AI Productivity Essentials** course.
 
 **This is the copy-and-use starter.** Clone it, pick a problem statement, and each sample folder gives you a ready-made **template** — a source-list template, a cited-Q&A template, and a briefing template, each with example content already filled in. Swap in your own sources and you have a working NotebookLM knowledge base documented in your repo.
 
@@ -55,7 +55,7 @@ NotebookLM does the **cited retrieval over your sources**; Claude helps you **pl
 
 ---
 
-*HO5 · Solo · ForgeMind AI Course · module M9 (Week 3)*
+*HO5 · Solo · ForgeMind AI Course · module M8 (Week 3)*
 
 ## 💡 Use your Claude.ai Pro plan wisely
 

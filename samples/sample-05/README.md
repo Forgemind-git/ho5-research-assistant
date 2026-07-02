@@ -1,82 +1,38 @@
-# Sample 05 — Compound Savings Calculator
+# Sample 05 — Industry Reports KB (copy-and-use template)
 
-> User enters starting amount, monthly contribution, annual interest rate, and years. Shows final value, total contributed, and interest earned. A Chart.js line chart redraws live showing balance growth year by year.
+> A ready-to-adapt template for a NotebookLM knowledge base over the latest reports in your field — ask *"what changed this quarter and why does it matter for us?"* and get **cited** answers.
 
-## What This Tool Does
+**This is a template** with a worked marketing example plus `<< … >>` blanks for your own field.
 
-A live compound interest calculator with a visual chart. Adjust any input field and the chart and summary cards update instantly — no page reload.
+## The problem statement
 
-**Inputs:**
-- Starting amount (principal)
-- Monthly contribution
-- Annual interest rate (%)
-- Time period (years)
-
-**Outputs:**
-- **Total Contributed** — principal plus all monthly deposits
-- **Interest Earned** — the growth attributable purely to compounding
-- **Final Value** — total balance at the end of the period
-- **Chart** — two-line Chart.js chart showing Total Balance vs. Total Contributed year by year, making the power of compounding visually clear
-
-**Calculation method:** Monthly compounding. The nominal annual rate is divided by 12 to compute a monthly rate. Each month: `balance = balance × (1 + monthlyRate) + monthlyContribution`.
+> *"Your industry publishes reports faster than you can read them. Build a NotebookLM knowledge base over the latest reports in your field and ask 'what changed this quarter and why does it matter for us?' with cited answers. Success: a notebook + a cited briefing you could send to your team + an Audio Overview."*
 
 ## Use it with your Claude.ai subscription
 
-No API key needed — just your normal Claude.ai login. Claude builds this calculator (chart and all) for you live as an **Artifact** (the preview panel on the right of the chat).
+No API key, no code.
 
-1. Open **Claude.ai** and start a new chat.
-2. Copy the **example prompt** below and paste it in. Send it.
-3. Claude builds the calculator in an **Artifact** panel on the right. Change the numbers and watch the chart redraw.
-4. Want changes? Just ask — e.g. *"compound yearly instead of monthly"* or *"add an inflation slider"*. Claude updates the artifact.
-5. To share it, click **Publish** for a link — or click the **`</>` code** button, copy the HTML, and save it as `index.html`. (A finished copy is already in this folder.)
+1. Go to **[notebooklm.google.com](https://notebooklm.google.com)**, sign in, **Create new notebook**.
+2. **Add source**: upload each **report PDF**, paste the **report URL**, or add a **YouTube** analyst briefing. Add 4–8 recent reports (see [`sources.md`](./sources.md)).
+3. Ask the ready-made question in [`qa.md`](./qa.md): *"What are the three biggest changes this quarter, and why does each matter for us? Cite each."*
+4. Verify the **citations** point at the right report/page. Paste answers into `qa.md`.
+5. In **Studio**, generate a **Briefing doc**; copy into [`briefing.md`](./briefing.md) and shape it into a "for the team" note.
+6. Generate an **Audio Overview** — a two-host discussion of the quarter's reports is a great Monday listen; **Share** for a link.
+7. **Share** the notebook so teammates can ask their own questions of the same reports.
 
-## The example prompt
+**No API key needed.** Genuine **RAG** — NotebookLM retrieves across a pile of long reports at once, finds what changed, and cites the report it came from (unlike HO4's single pasted document).
 
-Copy this exactly into Claude.ai:
+## Fill these in
+- **Notebook name:** `<< e.g. Marketing — Quarterly Industry Reports >>`
+- **Shared notebook link:** `<< paste link >>`
+- **Audio Overview link:** `<< paste link >>`
 
-```
-Build me an interactive compound savings calculator as an artifact (one self-contained HTML file). Use Chart.js loaded from a CDN for the chart.
-
-Input fields:
-- Starting amount
-- Monthly contribution
-- Annual interest rate (%)
-- Number of years
-
-Compound monthly (divide the annual rate by 12). As the user types, update live — no submit button — and show:
-- Total contributed (starting amount plus all monthly deposits)
-- Interest earned
-- Final value
-- A line chart that redraws showing "Total Balance" vs "Total Contributed" year by year
-
-Use clean, modern styling with summary cards above the chart.
-```
+## The three template files
+- **`sources.md`** — source-list template (reports across your field; example rows + blanks).
+- **`qa.md`** — "what changed / why it matters" questions with one worked answer and blanks.
+- **`briefing.md`** — a one-page cited briefing template you could send the team.
 
 ## Make it your own
-- Reframe it for a loan payoff, a savings goal, or a subscription's lifetime cost.
-- Ask Claude to add a goal line ("reach $50,000") and highlight when it's hit.
-- Change the currency symbol and number formatting to your region.
-
-## How to Use
-
-1. Open `index.html` in any modern browser — requires internet access for the Chart.js CDN.
-2. Adjust the four input fields.
-3. Chart and summary cards update live as you type.
-4. Hover over the chart to see exact values for any year.
-
-## How to Host
-
-**Locally:** Double-click `index.html` (requires internet for Chart.js CDN on first load).
-
-**Static hosting:**
-- [Netlify Drop](https://app.netlify.com/drop)
-- [GitHub Pages](https://pages.github.com/)
-- Any static file host
-
-## Dependencies
-
-- [Chart.js](https://www.chartjs.org/) via CDN (`cdn.jsdelivr.net`) — loaded at runtime, no install needed.
-
-## Disclaimer
-
-This tool is for illustrative and educational purposes only. It does not account for taxes, inflation, fees, or variable interest rates. It does not constitute financial advice.
+- Add the reports **your** field publishes — analyst reports, benchmark studies, State-of-X decks.
+- Each quarter, **remove last quarter's reports and add the new ones**, then re-ask the same question to see the delta.
+- Ask the action question explicitly: *"For each change, what's one thing we should do differently?"*

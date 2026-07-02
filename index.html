@@ -3,86 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HO5: Interactive Artifact Tool — Starter</title>
+  <title>HO5: Research Knowledge Base — Starter</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#F8F9FA; color:#1a1a2e; }
     header { background:#7C3AED; color:#fff; padding:40px 32px 32px; }
     .badge { font-size:12px; font-weight:700; letter-spacing:.08em; opacity:.75; text-transform:uppercase; margin-bottom:8px; }
     h1 { font-size:26px; font-weight:800; margin-bottom:6px; }
-    header p { font-size:14px; opacity:.85; max-width:600px; line-height:1.6; }
+    header p { font-size:14px; opacity:.9; max-width:640px; line-height:1.6; }
     .starter-bar { background:#FEF3C7; border-left:4px solid #D97706; padding:14px 20px; margin:24px 32px; border-radius:4px; font-size:14px; color:#92400E; line-height:1.6; }
     .starter-bar strong { color:#92400E; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; padding:0 32px 40px; }
-    .card { background:#fff; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,.08); overflow:hidden; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px; padding:0 32px 40px; }
+    .card { background:#fff; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,.08); overflow:hidden; display:flex; flex-direction:column; }
     .card-top { background:#7C3AED; padding:12px 16px; display:flex; align-items:center; gap:10px; }
     .num { background:rgba(255,255,255,.25); color:#fff; font-weight:800; font-size:12px; border-radius:20px; padding:2px 9px; }
     .card-top h3 { color:#fff; font-size:14px; font-weight:700; }
-    .card-body { padding:16px; }
-    .card-body p { font-size:13px; color:#4B5563; line-height:1.6; margin-bottom:14px; }
-    .todo-badge { display:inline-block; background:#FEF3C7; color:#92400E; font-size:11px; font-weight:700; padding:2px 8px; border-radius:20px; margin-bottom:12px; }
-    .btn { display:inline-flex; align-items:center; gap:6px; padding:8px 14px; background:#7C3AED; color:#fff; text-decoration:none; border-radius:6px; font-size:13px; font-weight:600; }
+    .card-body { padding:16px; flex:1; display:flex; flex-direction:column; }
+    .card-body p { font-size:13px; color:#4B5563; line-height:1.6; margin-bottom:12px; flex:1; }
+    .tmpl-badge { display:inline-block; background:#EDE9FE; color:#6D28D9; font-size:11px; font-weight:700; padding:2px 8px; border-radius:20px; margin-bottom:12px; }
+    .btn { display:inline-flex; align-items:center; gap:6px; padding:8px 14px; background:#7C3AED; color:#fff; text-decoration:none; border-radius:6px; font-size:13px; font-weight:600; align-self:flex-start; }
     footer { text-align:center; padding:24px; color:#9CA3AF; font-size:13px; border-top:1px solid #E5E7EB; }
   </style>
 </head>
 <body>
   <header>
     <div class="badge">HO5 &middot; Forgemind AI Claude Course &middot; Starter Template</div>
-    <h1>Interactive Artifact Tool</h1>
-    <p>Your starting point. Pick ONE sample below, read the problem statement, and build it using Claude.ai.</p>
+    <h1>Research Knowledge Base</h1>
+    <p>Your starting point. Pick ONE template below, then build a NotebookLM knowledge base over your own sources that answers questions <strong>with citations</strong> &mdash; real retrieval (RAG). No API key, no code.</p>
   </header>
   <div class="starter-bar">
-    <strong>This is the starter branch.</strong> It gives you the structure &mdash; you supply the thinking and the Claude.ai work.
-    To see a complete reference, switch to the <code>main</code> branch or visit the GitHub Pages site.
+    <strong>This is the starter branch.</strong> Each folder is a copy-and-use template &mdash; a <code>sources.md</code>, <code>qa.md</code> and <code>briefing.md</code> with example content filled in and <code>&lt;&lt; … &gt;&gt;</code> blanks for your own material. Build the notebook in <a href="https://notebooklm.google.com">NotebookLM</a>, then fill the blanks. For a complete reference, switch to the <code>main</code> branch.
   </div>
   <div class="grid">
 
     <div class="card">
-      <div class="card-top"><span class="num">Sample 1</span><h3>roi calculator</h3></div>
+      <div class="card-top"><span class="num">01</span><h3>Competitor Intelligence</h3></div>
       <div class="card-body">
-        <span class="todo-badge">&#x2B1C; Not started</span>
-        <p>Prospects keep asking your sales team &ldquo;what will this actually save me?&rdquo; Build an interactive ROI calculator as a Claude Artifact that takes team size, hours and hourly cost, and shows time saved, money saved and payback period.</p>
-        <a href="./samples/sample-01/" class="btn">Start here &rarr;</a>
+        <span class="tmpl-badge">copy-and-use template</span>
+        <p>A KB over competitors' sites, launch posts, reviews and docs. Ask "what are their three biggest weaknesses?" with cited answers.</p>
+        <a class="btn" href="./samples/sample-01/">Open template →</a>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-top"><span class="num">Sample 2</span><h3>decision quiz</h3></div>
+      <div class="card-top"><span class="num">02</span><h3>Team Onboarding KB</h3></div>
       <div class="card-body">
-        <span class="todo-badge">&#x2B1C; Not started</span>
-        <p>Customers cannot tell which of your plans fits them. Build a no-code decision quiz as a Claude Artifact with 4&ndash;5 questions that recommends the best option.</p>
-        <a href="./samples/sample-02/" class="btn">Start here &rarr;</a>
+        <span class="tmpl-badge">copy-and-use template</span>
+        <p>A KB over your wiki, runbooks and policies so a new joiner can ask "how do I request access?" and get an answer that cites the exact page.</p>
+        <a class="btn" href="./samples/sample-02/">Open template →</a>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-top"><span class="num">Sample 3</span><h3>concept explainer</h3></div>
+      <div class="card-top"><span class="num">03</span><h3>Decision KB</h3></div>
       <div class="card-body">
-        <span class="todo-badge">&#x2B1C; Not started</span>
-        <p>A concept in your field confuses every newcomer. Build an interactive explainer Artifact that teaches it through a live example the learner controls.</p>
-        <a href="./samples/sample-03/" class="btn">Start here &rarr;</a>
+        <span class="tmpl-badge">copy-and-use template</span>
+        <p>Pull the scattered PDFs behind a vendor / plan / framework choice into one notebook; every trade-off answer cites where it came from.</p>
+        <a class="btn" href="./samples/sample-03/">Open template →</a>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-top"><span class="num">Sample 4</span><h3>self assessment</h3></div>
+      <div class="card-top"><span class="num">04</span><h3>Exam / Certification Study KB</h3></div>
       <div class="card-body">
-        <span class="todo-badge">&#x2B1C; Not started</span>
-        <p>Your audience wants to know &ldquo;how ready am I?&rdquo; Build a self-assessment scorecard Artifact with 8&ndash;10 yes/no or rated questions, an auto-scored result, and personalised tips.</p>
-        <a href="./samples/sample-04/" class="btn">Start here &rarr;</a>
+        <span class="tmpl-badge">copy-and-use template</span>
+        <p>A KB over your syllabus and readings that generates a study guide and FAQ and answers revision questions with cited, trustworthy answers.</p>
+        <a class="btn" href="./samples/sample-04/">Open template →</a>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-top"><span class="num">Sample 5</span><h3>finance calculator</h3></div>
+      <div class="card-top"><span class="num">05</span><h3>Industry Reports KB</h3></div>
       <div class="card-body">
-        <span class="todo-badge">&#x2B1C; Not started</span>
-        <p>People weighing a loan or savings goal cannot picture how the numbers play out. Build an interactive calculator Artifact that shows compound growth or loan repayments on a chart.</p>
-        <a href="./samples/sample-05/" class="btn">Start here &rarr;</a>
+        <span class="tmpl-badge">copy-and-use template</span>
+        <p>A KB over the latest reports in your field. Ask "what changed this quarter and why does it matter for us?" and get a cited briefing.</p>
+        <a class="btn" href="./samples/sample-05/">Open template →</a>
       </div>
     </div>
 
   </div>
-  <footer>Forgemind AI &middot; Claude Course &middot; HO5 &middot; <a href="https://github.com/Forgemind-git/ho5-interactive-artifact" style="color:#7C3AED">github.com/Forgemind-git/ho5-interactive-artifact</a></footer>
+  <footer>Forgemind AI &middot; Claude Course &middot; HO5 &middot; github.com/Forgemind-git/ho5-research-assistant</footer>
 </body>
 </html>

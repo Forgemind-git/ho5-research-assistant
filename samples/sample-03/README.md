@@ -1,91 +1,38 @@
-# Sample 03 — Token & Context Window Explainer
+# Sample 03 — Decision Knowledge Base (copy-and-use template)
 
-> The user types any text into a textarea. The tool counts approximate tokens (chars/4), shows how many messages like this fit in different context windows (8k/32k/100k/200k), and colour-codes how full each window would be.
+> A ready-to-adapt template for a NotebookLM knowledge base over the scattered PDFs behind a big decision (a vendor, a health plan, a framework) — so every trade-off answer **cites where it came from**.
 
-## What This Tool Does
+**This is a template** with a worked vendor example plus `<< … >>` blanks for your own decision.
 
-An interactive explainer that makes the abstract concept of "tokens" and "context windows" tangible. As the user types or pastes text, the tool instantly shows:
+## The problem statement
 
-- **Character count** — raw length of the text
-- **Word count** — whitespace-split word count
-- **Approximate token count** — estimated using the chars ÷ 4 heuristic
-- **Context window visualisation** — a colour-coded bar for each major AI model showing how full the window is and how many messages of that length would fit
-
-**Context windows shown:**
-| Model | Window |
-|---|---|
-| GPT-3.5 Turbo | 4k tokens |
-| GPT-4 / Claude Instant | 8k tokens |
-| GPT-4 Turbo | 32k tokens |
-| Claude 3 Haiku | 48k tokens |
-| Claude 3.5 Sonnet | 200k tokens |
-| Gemini 1.5 Pro | 1M tokens |
-
-**Colour coding:**
-- Green — under 25% full
-- Yellow — 25–60% full
-- Orange — 60–90% full
-- Red — over 90% full (or exceeds window)
+> *"You're weighing a big decision (a vendor, a health plan, a framework) and the material is scattered across PDFs and pages. Build a NotebookLM knowledge base over those sources and ask the trade-off questions that matter; every answer cites where it came from. Success: a notebook + a one-page cited decision brief + an Audio Overview."*
 
 ## Use it with your Claude.ai subscription
 
-No API key needed — just your normal Claude.ai login. Claude builds this explainer for you live as an **Artifact** (the preview panel on the right of the chat).
+No API key, no code.
 
-1. Open **Claude.ai** and start a new chat.
-2. Copy the **example prompt** below and paste it in. Send it.
-3. Claude builds the explainer in an **Artifact** panel on the right. Type or paste some text and watch the bars react.
-4. Want changes? Just ask — e.g. *"add a row for a 1 million token window"* or *"explain in one line what a token is at the top"*. Claude updates the artifact.
-5. To share it, click **Publish** for a link — or click the **`</>` code** button, copy the HTML, and save it as `index.html`. (A finished copy is already in this folder.)
+1. Go to **[notebooklm.google.com](https://notebooklm.google.com)**, sign in, **Create new notebook**.
+2. **Add source** for each option: upload the **pricing PDF**, paste the **feature page URL**, add a **docs page**, and paste a **third-party review** (see [`sources.md`](./sources.md)). Cover each option evenly.
+3. Ask the trade-off questions in [`qa.md`](./qa.md), e.g. *"Which option is cheapest at our size, and what's excluded? Cite each."*
+4. Confirm each **citation** points at the right pricing/feature page. Paste answers into `qa.md`.
+5. In **Studio**, generate a **Briefing doc**; copy into [`briefing.md`](./briefing.md) and turn it into a recommendation.
+6. In **Studio**, generate an **Audio Overview** to gut-check the trade-offs; **Share** for a link.
+7. **Share** the notebook so stakeholders can interrogate the sources themselves.
 
-## The example prompt
+**No API key needed.** Genuine **RAG** — NotebookLM retrieves across all the PDFs at once and cites the source of each trade-off claim, which is how you defend the decision.
 
-Copy this exactly into Claude.ai:
+## Fill these in
+- **Notebook name:** `<< e.g. Helpdesk Vendor Decision / Health Plan 2026 >>`
+- **Shared notebook link:** `<< paste link >>`
+- **Audio Overview link:** `<< paste link >>`
 
-```
-Build me an interactive "tokens and context windows" explainer as an artifact (one self-contained HTML file, no external libraries).
-
-Give me a large textarea where I can type or paste any text. As I type, update live and show:
-- Character count
-- Word count
-- Approximate token count (use the simple rule: characters divided by 4)
-
-Then show a colour-coded horizontal bar for each of these AI models, showing how full its context window would be and roughly how many messages of this length would fit:
-- GPT-3.5 Turbo (4k tokens)
-- GPT-4 / Claude Instant (8k)
-- GPT-4 Turbo (32k)
-- Claude 3 Haiku (48k)
-- Claude 3.5 Sonnet (200k)
-- Gemini 1.5 Pro (1,000k)
-
-Colour the bars: green under 25% full, yellow 25-60%, orange 60-90%, red over 90% or over the limit. Use clean, modern styling.
-```
+## The three template files
+- **`sources.md`** — source-list template (example rows + blanks; works for vendors, health plans, or frameworks).
+- **`qa.md`** — trade-off questions with one worked answer and blanks.
+- **`briefing.md`** — a one-page decision brief template ending in a recommendation.
 
 ## Make it your own
-- Change the model list to just the tools your team actually uses.
-- Ask Claude to add a short, friendly sentence explaining why long context matters.
-- Add a "cost estimate" line if you want to show roughly what a message would cost.
-
-## How to Use
-
-1. Open `index.html` in any modern browser.
-2. Type or paste any text into the textarea.
-3. Results update live — no button needed.
-
-## How to Host
-
-**Locally:** Double-click `index.html`.
-
-**Static hosting:**
-- [Netlify Drop](https://app.netlify.com/drop)
-- [GitHub Pages](https://pages.github.com/)
-- Any static file host
-
-## Tech Stack
-
-- Pure HTML5 / CSS3 / Vanilla JavaScript
-- No external dependencies
-- No build step required
-
-## Notes
-
-Token count uses the simple `characters ÷ 4` approximation, which is accurate for typical English prose. For exact token counts, use the Anthropic or OpenAI tokenizer libraries.
+- Swap the three example vendors for your real options — or make it a **health plan** (upload each plan's Summary of Benefits PDF) or a **framework** decision (upload docs + benchmark posts).
+- Add the **contract/terms PDF** — lock-in and cancellation clauses are where citations matter most.
+- Ask *"What risks or limits are mentioned that a buyer might miss?"*

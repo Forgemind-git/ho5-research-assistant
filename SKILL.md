@@ -15,8 +15,9 @@ the rest.
   question, no long preamble. A beginner needs clarity, not volume.
 - **Plan, then do it in one pass.** For anything non-trivial, give a 1–3 line plan, then deliver
   the whole change at once instead of dribbling it across several replies.
-- **Reuse what's already there.** Start from the starter files and the example prompt in the
-  sample README — they are tested. Tweak; don't regenerate from scratch.
+- **Reuse what's already there.** Start from the starter template and the example sources and
+  questions in the sample's `sources.md` / `qa.md` — they are tested. Tweak; don't regenerate
+  from scratch. (This HO is built in NotebookLM — the deliverables are markdown, not code.)
 - **Don't re-read or re-paste.** If a file or output already appeared in this chat, refer back to
   it — never repeat it in full.
 - **Batch related edits.** Think it through once and make all the changes together; avoid

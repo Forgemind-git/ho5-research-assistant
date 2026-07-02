@@ -1,6 +1,6 @@
 # HO5 — Research Knowledge Base
 
-> Hands-on portfolio project · **Week 3** · **Solo** · module M9. Part of the **ForgeMind AI — AI Productivity Essentials** course.
+> Hands-on portfolio project · **Week 3** · **Solo** · module M8. Part of the **ForgeMind AI — AI Productivity Essentials** course.
 
 ## Goal
 
@@ -61,7 +61,7 @@ NotebookLM does the **cited retrieval over your sources**; Claude helps you **pl
 
 ---
 
-*HO5 · Solo · ForgeMind AI Course · module M9 (Week 3)*
+*HO5 · Solo · ForgeMind AI Course · module M8 (Week 3)*
 
 ## 💡 Use your Claude.ai Pro plan wisely
 

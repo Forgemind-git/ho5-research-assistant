@@ -1,108 +1,172 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HO5: Research Knowledge Base — Forgemind AI Claude Course</title>
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:#F8F9FA; color:#1a1a2e; }
-    :root { --color: #7C3AED; }
-    header { background: var(--color); color:#fff; padding:40px 32px 32px; }
-    header .badge { font-size:13px; font-weight:700; letter-spacing:.08em; opacity:.8; text-transform:uppercase; margin-bottom:8px; }
-    header h1 { font-size:28px; font-weight:800; margin-bottom:8px; }
-    header p { font-size:15px; opacity:.9; max-width:680px; line-height:1.6; }
-    .sub-bar { background:#fff; border-left:4px solid var(--color); padding:14px 20px; margin:24px 32px; border-radius:4px; font-size:14px; color:#374151; line-height:1.6; box-shadow:0 1px 4px rgba(0,0,0,.07); }
-    .sub-bar strong { color:var(--color); }
-    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px; padding:0 32px 40px; }
-    .card { background:#fff; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,.08); overflow:hidden; display:flex; flex-direction:column; }
-    .card:hover { box-shadow:0 4px 16px rgba(0,0,0,.13); }
-    .card-top { background:var(--color); padding:14px 18px; display:flex; align-items:center; gap:10px; }
-    .card-num { background:rgba(255,255,255,.25); color:#fff; font-weight:800; font-size:12px; border-radius:20px; padding:2px 9px; }
-    .card-top h3 { color:#fff; font-size:14.5px; font-weight:700; }
-    .card-body { padding:16px 18px; flex:1; display:flex; flex-direction:column; }
-    .card-body p { font-size:13px; color:#4B5563; line-height:1.6; margin-bottom:14px; flex:1; }
-    .files { font-size:11.5px; color:#6B7280; margin-bottom:12px; }
-    .files code { background:#F3F4F6; padding:1px 5px; border-radius:4px; }
-    .btn { display:inline-flex; align-items:center; gap:6px; padding:8px 16px; background:var(--color); color:#fff; text-decoration:none; border-radius:6px; font-size:13px; font-weight:600; align-self:flex-start; }
-    .btn:hover { opacity:.88; }
-    footer { text-align:center; padding:24px; color:#9CA3AF; font-size:13px; border-top:1px solid #E5E7EB; margin-top:8px; }
-    @media(max-width:580px){ .grid{ grid-template-columns:1fr; padding:0 14px 28px; } header{ padding:24px 16px; } .sub-bar{ margin:14px 14px; } }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HO5 — Research Knowledge Base · ForgeMind AI</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  :root{
+    --pageBg:#F7F7F3; --headerBg:#0F0F10; --headerText:#F5F5F2; --headerMuted:#A1A1AA;
+    --headerBorder:rgba(255,255,255,.12); --cardBg:#fff; --border:#E5E5E0;
+    --text:#111; --textSec:#6B7280; --textMuted:#999; --primary:#dc2626; --primaryHover:#b91c1c;
+    --hover:#EFEEE6; --green:#0F6E56; --purple:#534AB7; --amber:#854F0B;
+    --shadowSm:0 1px 2px rgba(0,0,0,.08); --shadowMd:0 8px 24px rgba(0,0,0,.06);
+    --font:'DM Sans',system-ui,sans-serif; --mono:'DM Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{font-family:var(--font);background:var(--pageBg);color:var(--text);}
+  a{color:inherit;}
+  /* dark header */
+  header{height:56px;background:var(--headerBg);color:var(--headerText);display:flex;align-items:center;
+    padding:0 20px;position:sticky;top:0;z-index:10;border-bottom:1px solid var(--headerBorder);}
+  .wordmark{font-weight:900;font-size:16px;letter-spacing:.02em;display:flex;align-items:center;gap:2px;}
+  .wordmark .badge{background:var(--primary);color:#fff;padding:1px 6px;border-radius:5px;margin-left:2px;font-weight:800;}
+  .header-right{margin-left:auto;color:var(--headerMuted);font-size:12px;font-weight:500;display:flex;align-items:center;gap:8px;}
+  .header-right .dot{width:6px;height:6px;border-radius:99px;background:var(--green);}
+  /* layout */
+  .wrap{max-width:960px;margin:0 auto;padding:32px 24px 64px;}
+  /* hero */
+  .eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);}
+  h1{font-size:30px;font-weight:700;margin:8px 0 14px;letter-spacing:-.01em;}
+  .pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;}
+  .pill{font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px;font-family:var(--mono);}
+  .pill.wk{background:#E7F0FE;color:#1877F2;} .pill.mod{background:#EEEDFE;color:#3C3489;}
+  .pill.fmt{background:#E1F5EE;color:#0F6E56;} .pill.kind{background:#FAEEDA;color:#854F0B;}
+  /* card */
+  .card{background:var(--cardBg);border:1px solid var(--border);border-radius:8px;box-shadow:var(--shadowSm);padding:20px;}
+  .done{display:flex;align-items:flex-start;gap:12px;margin-bottom:28px;}
+  .done .ic{width:34px;height:34px;border-radius:8px;background:#FCEBEB;color:var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .done .cap{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--textMuted);}
+  .done .val{font-size:15px;font-weight:600;margin-top:3px;line-height:1.5;}
+  .section-h{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:600;margin:34px 0 14px;}
+  .section-h svg{color:var(--primary);}
+  .sub{font-size:13.5px;color:var(--textSec);margin:-8px 0 16px;line-height:1.6;}
+  /* sample grid */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .sample{background:var(--cardBg);border:1px solid var(--border);border-radius:8px;box-shadow:var(--shadowSm);
+    padding:16px;display:flex;flex-direction:column;gap:8px;transition:box-shadow .15s,transform .15s;text-decoration:none;}
+  .sample:hover{box-shadow:var(--shadowMd);transform:translateY(-1px);}
+  .sample .num{font-family:var(--mono);font-size:11px;font-weight:500;color:#fff;background:var(--primary);
+    width:22px;height:22px;border-radius:99px;display:flex;align-items:center;justify-content:center;}
+  .sample h3{font-size:14px;font-weight:600;margin:0;}
+  .sample p{font-size:13px;line-height:1.5;color:var(--text);margin:0;}
+  .sample .succ{font-size:12px;color:var(--green);font-weight:500;}
+  .sample .files{font-family:var(--mono);font-size:11px;color:var(--textMuted);}
+  .sample .view{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--primary);margin-top:auto;display:flex;align-items:center;gap:4px;}
+  /* steps */
+  .steps{counter-reset:s;display:flex;flex-direction:column;gap:10px;}
+  .step{display:flex;gap:12px;align-items:flex-start;}
+  .step .n{counter-increment:s;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--primary);
+    border:1.5px solid var(--border);border-radius:99px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .step .n::before{content:counter(s);}
+  .step p{font-size:13.5px;line-height:1.5;margin:2px 0;}
+  /* tip */
+  .tip{background:#FDF6F6;border:1px solid #F3C6C6;border-radius:8px;padding:16px 18px;margin-top:22px;}
+  .tip .th{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;color:var(--primary);margin-bottom:6px;}
+  .tip ul{margin:6px 0 0;padding-left:18px;font-size:13px;color:var(--textSec);line-height:1.6;}
+  code{font-family:var(--mono);font-size:12px;background:#F1F0EA;padding:1px 5px;border-radius:4px;}
+  footer{border-top:1px solid var(--border);margin-top:40px;padding-top:18px;font-size:12px;color:var(--textMuted);font-family:var(--mono);text-align:center;}
+  @media(max-width:680px){.grid{grid-template-columns:1fr;} h1{font-size:24px;}}
+</style>
 </head>
 <body>
   <header>
-    <div class="badge">HO5 · Week 3</div>
-    <h1>Research Knowledge Base</h1>
-    <p>Build a NotebookLM knowledge base over your own sources that answers questions <strong>with citations</strong> — real retrieval (RAG), not the model guessing. Each sample below is a worked reference: a source list, five cited Q&amp;A, and a one-page briefing.</p>
+    <span class="wordmark">FORGE<span class="badge">COURSE</span></span>
+    <span class="header-right"><span class="dot"></span>ForgeMind AI · Hands-On Portfolio</span>
   </header>
 
-  <div class="sub-bar">
-    <strong>Subscription-first · no API key · no code.</strong> Built entirely in <strong>Google NotebookLM</strong> (free with a Google account). Add real sources → ask questions that return <strong>cited</strong> answers → generate a briefing and an Audio Overview. NotebookLM <em>is</em> RAG — retrieval + generation over your material. That's the honest step up from HO4's in-context grounding.
+  <div class="wrap">
+    <div class="eyebrow">Hands-On 5 · Week 3 · Module M9 — Research &amp; RAG</div>
+    <h1>Research Knowledge Base</h1>
+    <div class="pills">
+      <span class="pill wk">Week 3</span>
+      <span class="pill mod">M9 · Research &amp; RAG</span>
+      <span class="pill fmt">Solo</span>
+      <span class="pill kind">RAG</span>
+    </div>
+
+    <div class="done card">
+      <div class="ic"><i data-lucide="target"></i></div>
+      <div>
+        <div class="cap">Done when</div>
+        <div class="val">You have a NotebookLM knowledge base that answers questions from your own sources <b>with citations</b> — plus a briefing (and/or an Audio Overview). Real retrieval (RAG), no code, no API key.</div>
+      </div>
+    </div>
+
+    <div class="section-h"><i data-lucide="database"></i> What you build</div>
+    <div class="sub">A research knowledge base in <b>Google NotebookLM</b>: add real sources (docs, PDFs, web pages, videos), then ask questions that come back with a <b>citation next to every claim</b>. Because NotebookLM <i>retrieves</i> the relevant passage and <i>generates</i> an answer grounded in it, this is genuine <b>RAG</b> — the honest step up from HO4's in-context grounding (pasting text into a prompt), not retrieval. You then generate a study guide / FAQ / briefing and, optionally, an <b>Audio Overview</b> (a two-host podcast of your sources). Subscription-first — free with a Google account, with your <code>Claude.ai</code> plan as the planning/polishing partner.</div>
+
+    <div class="section-h"><i data-lucide="list-checks"></i> Pick a problem statement</div>
+    <div class="sub">Choose one real use-case — or bring your own (get it approved first). Each of the five is fully worked in <code>samples/</code>.</div>
+    <div class="grid">
+      <a class="sample" href="./samples/sample-01/">
+        <span class="num">1</span>
+        <h3>Competitor intelligence</h3>
+        <p>As a marketer you can't keep up with what competitors are shipping. Build a knowledge base over their sites, launch posts, reviews and docs, then ask "what are their three biggest weaknesses?" and get answers that cite the exact source.</p>
+        <span class="succ">✓ a notebook + a cited gap-analysis brief + an Audio Overview</span>
+        <span class="files">sources.md · qa.md · briefing.md</span>
+        <span class="view">View sample <i data-lucide="arrow-right"></i></span>
+      </a>
+      <a class="sample" href="./samples/sample-02/">
+        <span class="num">2</span>
+        <h3>Team onboarding KB</h3>
+        <p>New joiners ask the same questions for weeks. Build a knowledge base over your team's wiki, runbooks and policy docs so anyone can ask "how do I request access?" and get an answer that cites the exact page.</p>
+        <span class="succ">✓ 5 real onboarding questions answered with correct citations + a briefing</span>
+        <span class="files">sources.md · qa.md · briefing.md</span>
+        <span class="view">View sample <i data-lucide="arrow-right"></i></span>
+      </a>
+      <a class="sample" href="./samples/sample-03/">
+        <span class="num">3</span>
+        <h3>Big decision</h3>
+        <p>You're weighing a big decision (a vendor, a health plan, a framework) and the material is scattered across PDFs and pages. Build a knowledge base over those sources and ask the trade-off questions that matter — every answer cites where it came from.</p>
+        <span class="succ">✓ a notebook + a one-page cited decision brief + an Audio Overview</span>
+        <span class="files">sources.md · qa.md · briefing.md</span>
+        <span class="view">View sample <i data-lucide="arrow-right"></i></span>
+      </a>
+      <a class="sample" href="./samples/sample-04/">
+        <span class="num">4</span>
+        <h3>Exam / certification study KB</h3>
+        <p>You're revising for an exam from a syllabus and dense readings. Build a knowledge base over those materials, generate a study guide and FAQ, and ask questions that return cited answers you can trust.</p>
+        <span class="succ">✓ a study guide + 5 cited Q&amp;A + an Audio Overview</span>
+        <span class="files">study guide · qa.md · sources.md</span>
+        <span class="view">View sample <i data-lucide="arrow-right"></i></span>
+      </a>
+      <a class="sample" href="./samples/sample-05/">
+        <span class="num">5</span>
+        <h3>Industry reports KB</h3>
+        <p>Your industry publishes reports faster than you can read them. Build a knowledge base over the latest reports in your field and ask "what changed this quarter and why does it matter for us?" with cited answers.</p>
+        <span class="succ">✓ a notebook + a cited briefing you could send to your team + an Audio Overview</span>
+        <span class="files">sources.md · qa.md · briefing.md</span>
+        <span class="view">View sample <i data-lucide="arrow-right"></i></span>
+      </a>
+    </div>
+
+    <div class="section-h"><i data-lucide="search"></i> NotebookLM retrieves — Claude plans &amp; polishes</div>
+    <div class="sub"><b>Before:</b> ask Claude to help choose which sources to add and write sharp questions. <b>After:</b> paste NotebookLM's cited answers into Claude to tighten your briefing for a specific audience. NotebookLM does the <b>cited retrieval over your sources</b>; Claude helps you <b>plan and polish</b>. Different jobs.</div>
+
+    <div class="section-h"><i data-lucide="git-branch"></i> How to use this repo</div>
+    <div class="steps card">
+      <div class="step"><span class="n"></span><p>Click <b>Use this template</b> to create your own copy.</p></div>
+      <div class="step"><span class="n"></span><p>Pick a problem statement, build your notebook in NotebookLM, and fill in your sample's <code>sources.md</code>, <code>qa.md</code> and <code>briefing.md</code>.</p></div>
+      <div class="step"><span class="n"></span><p>Replace this section of the README with what you built, the sources you used, and your notebook link.</p></div>
+    </div>
+
+    <div class="tip">
+      <div class="th"><i data-lucide="battery-charging"></i> Use your Claude.ai Pro plan wisely</div>
+      <ul>
+        <li>NotebookLM is free and separate, so most of this hands-on won't touch your Claude limit at all.</li>
+        <li>Use the example prompts and questions in each sample's README — they're already written and tested.</li>
+        <li>One clear message beats lots of vague back-and-forth.</li>
+        <li>Start a new chat when you switch tasks — long chats re-read every earlier message and use up your limit faster.</li>
+        <li>Don't paste big files over and over. Paste once, then refer back to it.</li>
+      </ul>
+    </div>
+
+    <footer>HO5 · Solo · ForgeMind AI — AI Productivity Essentials · Module M9 (Week 3)</footer>
   </div>
-
-  <div class="grid">
-    <div class="card">
-      <div class="card-top">
-        <span class="card-num">01</span>
-        <h3>Competitor Intelligence</h3>
-      </div>
-      <div class="card-body">
-        <p>A knowledge base over competitors' sites, launch posts, reviews and docs. Ask "what are their three biggest weaknesses?" and get answers that cite the exact source.</p>
-        <div class="files">Ships: <code>sources.md</code> · <code>qa.md</code> · <code>briefing.md</code> + Audio Overview</div>
-        <a class="btn" href="./samples/sample-01/">View Sample →</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <span class="card-num">02</span>
-        <h3>Team Onboarding KB</h3>
-      </div>
-      <div class="card-body">
-        <p>A knowledge base over your wiki, runbooks and policies so a new joiner can ask "how do I request access?" and get an answer that cites the exact page.</p>
-        <div class="files">Ships: <code>sources.md</code> · <code>qa.md</code> · <code>briefing.md</code></div>
-        <a class="btn" href="./samples/sample-02/">View Sample →</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <span class="card-num">03</span>
-        <h3>Decision KB (vendor / plan / framework)</h3>
-      </div>
-      <div class="card-body">
-        <p>Pull the scattered PDFs behind a big decision into one notebook and ask the trade-off questions that matter — every answer cites where it came from.</p>
-        <div class="files">Ships: <code>sources.md</code> · <code>qa.md</code> · <code>briefing.md</code> + Audio Overview</div>
-        <a class="btn" href="./samples/sample-03/">View Sample →</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <span class="card-num">04</span>
-        <h3>Exam / Certification Study KB</h3>
-      </div>
-      <div class="card-body">
-        <p>A knowledge base over your syllabus and dense readings that generates a study guide and FAQ and answers revision questions with cited, trustworthy answers.</p>
-        <div class="files">Ships: study guide · <code>qa.md</code> · <code>sources.md</code> + Audio Overview</div>
-        <a class="btn" href="./samples/sample-04/">View Sample →</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top">
-        <span class="card-num">05</span>
-        <h3>Industry Reports KB</h3>
-      </div>
-      <div class="card-body">
-        <p>A knowledge base over the latest reports in your field. Ask "what changed this quarter and why does it matter for us?" and get a cited briefing you can send the team.</p>
-        <div class="files">Ships: <code>sources.md</code> · <code>qa.md</code> · <code>briefing.md</code> + Audio Overview</div>
-        <a class="btn" href="./samples/sample-05/">View Sample →</a>
-      </div>
-    </div>
-  </div>
-
-  <footer>Forgemind AI · Claude Course · HO5 · github.com/Forgemind-git/ho5-research-assistant</footer>
+  <script>lucide.createIcons();</script>
 </body>
 </html>
